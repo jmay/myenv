@@ -1,0 +1,29 @@
+module Ripl::ImmediateHistory
+  # write to history after every eval
+  def eval_input(input)
+    super
+    File.open(history_file, 'a') {|f| f.puts input }
+  end
+
+  # disable writing to history when ripl exits
+  def write_history; end
+end
+Ripl::Shell.send :include, Ripl::ImmediateHistory
+
+Ripl.config[:history] = ".irb_history" # separate command history in every directory where I run irb or ripl
+
+require 'ripl/multi_line'
+# require 'ripl/irb'
+require 'ripl/commands'
+
+Ripl.config[:prompt] = lambda { "#{File.basename(Dir.getwd)}:#{Ripl.shell.line}> " } # normal prompt
+Ripl.config[:multi_line_prompt] = ">> "
+
+# require 'sketches' # for editing ruby in an editor and having it automatically reload in the ripl session
+# Sketch.config :background => true
+# e.g. sketch_from 'filename'
+# sketch sources are remembered & refreshed permanently in the session
+
+# require 'boson' # for more added commands
+
+# require "bundler/setup" # so that we can access gems installed via bundler

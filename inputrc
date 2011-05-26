@@ -1,0 +1,11 @@
+# http://docs.freebsd.org/info/readline/readline.info.Readline_Init_File.html
+
+# needed for UTF-8 to work
+
+set input-meta on
+set meta-flag on
+set output-meta on
+set convert-meta off
+
+# 080708: http://blog.macromates.com/2008/working-with-history-in-bash/
+"\ep": history-search-backward
