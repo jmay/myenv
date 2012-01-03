@@ -190,3 +190,9 @@
 
 ;;(set-default 'cursor-type 'box)
 ;;(set 'cursor-type 'box)
+
+;;;;;;;;
+;; tramp - http://www.gnu.org/s/tramp
+
+(add-to-list 'load-path "~/env/emacs-stuff/tramp/lisp/")
+(require 'tramp)

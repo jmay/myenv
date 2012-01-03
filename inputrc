@@ -9,3 +9,10 @@ set convert-meta off
 
 # 080708: http://blog.macromates.com/2008/working-with-history-in-bash/
 "\ep": history-search-backward
+
+# http://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/
+set completion-ignore-case on
+set completion-prefix-display-length 2
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set completion-map-case on

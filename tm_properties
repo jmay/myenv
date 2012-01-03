@@ -1,0 +1,55 @@
+# References:
+# https://github.com/hmans/homedir/blob/master/.tm_properties
+# https://gist.github.com/1478685
+
+# Basic Settings
+#
+fontName         = "Menlo"
+fontSize         = 14
+
+# Extra files to include
+#
+fileBrowserGlob  = "{*,.tm_properties,.htaccess,.gitignore,.rvmrc}"
+include = "{$include,.tm_properties,.htaccess,.gitignore,.rvmrc}"
+
+# Hide log, vendor and tmp directories from search popups.
+#
+myExtraExcludes = "log,vendor,tmp"
+excludeInFileChooser  = "{$excludeInFileChooser,$myExtraExcludes}" 
+excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}" 
+
+# If you also want to hide them from your project manager pane, add
+# the following line to your project's local .tm_properties.
+#
+# excludeInBrowser      = "{$excludeInBrowser,log,vendor,tmp}" 
+
+
+# Configure git and hg
+#
+# TM_HG  = "/opt/local/bin/hg"
+TM_GIT = "/usr/local/bin/git"
+
+[ text ]
+softWrap         = true
+softTabs         = true
+tabSize          = 4
+showInvisibles   = true
+
+[ .git/COMMIT_EDITMSG ]
+softWrap         = true
+spellChecking    = true
+spellingLanguage = 'en'
+
+[ *.{icns,ico,jpg,jpeg,m4v,nib,pdf,png,psd,pyc,rtf,tif,tiff,xib} ]
+binary           = true
+
+[ source ]
+softTabs         = true
+tabSize          = 2
+
+[ source.python ]
+softTabs         = true
+tabSize          = 4
+
+[ "{README,INSTALL,LICENSE,TODO}" ]
+fileType         = "text.plain"
