@@ -38,7 +38,7 @@ export JAVA_HOME=/Library/Java/Home
 # DarwinPorts (http://www.macosforge.org/) puts things in /opt/local
 export SYSTEM_PATH=$PATH
 export MY_PATH=$HOME/bin:$RVM_HOME/bin:/Users/jmay/.perl/bin:$GEM_HOME/bin
-export LOCALS_PATH=/usr/local/mysql/bin:/Developer/usr/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:$EC2_HOME/bin
+export LOCALS_PATH=/usr/local/mysql/bin:/Developer/usr/bin:/opt/local/sbin:/usr/local/bin:$EC2_HOME/bin
 # export PATH=$HOME/bin:$GEM_HOME/bin:/home/jmay/perl/bin:/usr/local/mysql/bin:/opt/local/bin:/usr/local/bin:$PATH
 
 export LD_LIBRARY_PATH=/opt/local/lib:/usr/local/lib
