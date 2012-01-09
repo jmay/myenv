@@ -111,9 +111,6 @@
 
 (read-abbrev-file "~/.emacs-abbrevs")
 
-(cond ((not running-xemacs)
-	   (hscroll-global-mode)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Remembrance Agent
 
