@@ -1,25 +1,11 @@
-# .bashrc
-
-# User specific aliases and functions
+# .bashrc 
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-export LS=/bin/ls
-
-alias rm="rm -i"
-alias cp="cp -i"
-alias mv="mv -i"
-
-alias c=clear
-alias ls="$LS -v" # -v "force unedited printing" which gives proper UTF-8 display
-alias l="$LS -v"
-alias ll="$LS -alv" # -a include dot files
-alias lt="$LS -altv" # -t order by modified timestamp, most recent first
-
-alias cln="rm -i *~"
+. ~/env/aliases.bash
 
 # usage: p
 function p {
@@ -30,10 +16,6 @@ function p {
 	ps aucx
     fi
 }
-
-alias wget="curl -O"
-
-alias mmd2="~/Library/Application\ Support/MultiMarkdown/bin/MultiMarkdown.pl"
 
 # http://effectif.com/mac-os-x/textmate/opening-ruby-gems-in-textmate
 _mategem()
