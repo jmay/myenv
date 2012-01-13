@@ -6,6 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 
 . ~/env/aliases.bash
+. ~/env/functions.bash
 
 # usage: p
 function p {
