@@ -32,7 +32,7 @@ TM_GIT = "/usr/local/bin/git"
 [ text ]
 softWrap         = true
 softTabs         = true
-tabSize          = 4
+tabSize          = 2
 showInvisibles   = true
 
 [ .git/COMMIT_EDITMSG ]

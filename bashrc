@@ -10,12 +10,12 @@ fi
 
 # usage: p
 function p {
-    if [ $# -gt 0 ]
-    then
-	ps aucx | head -1; ps aucx | grep -i $1
-    else
-	ps aucx
-    fi
+  if [ $# -gt 0 ]
+  then
+  	ps aucx | head -1; ps aucx | grep -i $1
+  else
+  	ps aucx
+  fi
 }
 
 # http://effectif.com/mac-os-x/textmate/opening-ruby-gems-in-textmate
