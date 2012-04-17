@@ -1,4 +1,171 @@
-;; MacOSX Linux default .emacs initialization file
+;; Jason May's emacs initialization file
+;;
+;; my favorite modes
+;;
+;; markdown
+;; http://jblevins.org/projects/markdown-mode/
+;; I use .md for usual markdown extension
+;; TODO: might want to recognize .mmd, .text, .txt
+;;
+(autoload 'markdown-mode "markdown-mode.el"
+          "Major mode for editing Markdown files" t)
+(setq auto-mode-alist
+      (cons '("\\.md" . markdown-mode)
+      auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("emacs$" . emacs-lisp-mode)
+      auto-mode-alist))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TextMate emulation
+;; http://www.emacswiki.org/emacs/TextMate
+;; fuzzy find-file completion ("Go To File")
+(require 'ido)
+;;(load-file "~/env/emacs-lisp/find-file-in-project.el")
+
+(setq load-path (cons "~/env/emacs-lisp" load-path))
+
+;;(load-file "~/env/emacs-lisp/project-root.el")
+
+(add-to-list 'load-path "~/env/emacs-lisp/textmate.el")
+(require 'textmate)
+(textmate-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; git
+
+;;(require 'magit)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; themes
+;; this pulls in the color-theme library
+;;(load-file "~/env/emacs-lisp/twilight-emacs/color-theme-twilight.el")
+
+;; Solarized theme installation for emacs 23 - emacs 24 has more builtin stuff
+(add-to-list 'load-path "~/env/solarized/emacs-colors-solarized")
+(require 'color-theme)
+(color-theme-initialize)
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; uncomment this line to disable loading of "default.el" at startup
+;; (setq inhibit-default-init t)
+
+;; turn on font-lock mode (aka syntax highlighting)
+(global-font-lock-mode t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; MacOSX-specific stuff
+;;
+;; turn off Option key as Meta
+;;(setq mac-option-modifier nil)
+;; turn on Command key as Meta
+;; I'm used to ESC as Meta, so maybe comment-
+;;(setq mac-command-modifier 'meta)
+;; keeps cmd-V, cmd-C, cmd-X working for clipboard operations
+;; but not cmd-O for open, cmd-S for save
+;;(setq x-select-enable-clipboard 't)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(global-set-key "" 'delete-backward-char)
+;;(global-set-key "" 'backward-kill-word)
+
+;; Enable wheelmouse support by default
+;;(require 'mwheel)
+
+;; Set up the keyboard so the delete key on both the regular keyboard
+;; and the keypad delete the character under the cursor and to the right
+;; under X, instead of the default, backspace behavior.
+;;(global-set-key [delete] 'delete-char)
+;;(global-set-key [kp-delete] 'delete-char)
+
+;; Always end a file with a newline
+(setq require-final-newline t)
+
+;; Stop at the end of the file, not just add lines
+(setq next-line-add-newlines nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Perl
+
+;; this sets the default mode for files ending in .pl
+(setq auto-mode-alist (cons '("\\.pl$" . cperl-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.pm$" . cperl-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.t$" . cperl-mode) auto-mode-alist))
+;; this sets the default mode for files with header #!...stuff.../perl
+(setq interpreter-mode-alist (cons '("perl" . cperl-mode)
+				   interpreter-mode-alist))
+
+(custom-set-variables
+ '(paren-mode (quote blink-paren) nil (paren))
+ '(cperl-indent-level 2)
+ '(cperl-continued-statement-offset 4)
+ '(cperl-tab-always-indent t)
+ '(indent-tabs-mode nil)
+ '(user-mail-address "jmay@pobox.com" t)
+ '(query-user-mail-address nil)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(read-abbrev-file "~/.emacs-abbrevs")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; My favorite shortcuts
+
+(global-set-key "g" 'goto-line)
+
+(global-set-key "%" 'query-replace-regexp)
+
+(global-set-key "\C-c\C-h" 'help-for-help)
+
+(global-set-key "\C-c\C-d" 'cperl-perldoc)
+
+(global-set-key "\C-c\C-m" 'manual-entry)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; I want autofill for my text buffers
+;; 051230: turning this off.  experimenting with breaking out of the tyranny of 80 cols...
+;;(setq-default fill-column 76)
+;;(add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Ruby on Rails
+
+  (defun try-complete-abbrev (old)
+   (if (expand-abbrev) t nil))
+
+  (setq hippie-expand-try-functions-list
+       '(try-complete-abbrev
+         try-complete-file-name
+         try-expand-dabbrev))
+
+
+(set-default 'cursor-type 'box)
+;;(set 'cursor-type 'box)
+
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; themes
+
+(require 'color-theme)
+(color-theme-initialize)
+(load-file "~/env/emacs-lisp/twilight-emacs/color-theme-twilight.el")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; these entries came from hostingzoom.com
@@ -157,8 +324,9 @@
 
 (global-set-key "\C-c\C-y" 'yank-clipboard-selection)
 
-(load-file "~/env/psvn.el")
-(global-set-key "\C-c\C-v" 'svn-status)
+;; haven't used svn in years, this can be retired
+;;(load-file "~/env/psvn.el")
+;;(global-set-key "\C-c\C-v" 'svn-status)
 
 ;; there is also vc-svn.el - compare to psvn.el?
 ;; (add-to-list 'vc-handled-backends 'SVN)
@@ -188,8 +356,7 @@
 ;;(set-default 'cursor-type 'box)
 ;;(set 'cursor-type 'box)
 
-;;;;;;;;
-;; tramp - http://www.gnu.org/s/tramp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Remote file access (TRAMP) - active by default
 
-(add-to-list 'load-path "~/env/emacs-stuff/tramp/lisp/")
-(require 'tramp)
+(setq tramp-default-method "ssh")

@@ -42,6 +42,15 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+# autocompletion for ssh
+_comp_ssh ()
+{
+  cur=${COMP_WORDS[COMP_CWORD]};
+  hosts=`/bin/cat ~/.ssh/config | grep 'Host ' | sed 's/.* //'`
+  COMPREPLY=($(compgen -W '$hosts --all --schema' -- $cur))
+}
+
+complete -F _comp_ssh ssh
 
 # prompt should look like:
 # smiley-space-hostname-colon-basename-{[-branch-dirty-]} where the branch/dirty bits are only shown for git directories
