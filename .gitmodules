@@ -1,3 +1,6 @@
 [submodule "na"]
 	path = na
 	url = git@github.com:jmay/na.git
+[submodule "emacs-lisp/rvm"]
+	path = emacs-lisp/rvm
+	url = https://github.com/senny/rvm.el.git

@@ -7,7 +7,7 @@
 # colors
 # https://wiki.archlinux.org/index.php/Color_Bash_Prompt
 color_red=`echo -e "\033[0;31m"`
-color_green=`echo -e "\033[0;32m"`
+color_green=`echo -e "\033[0;34m"` # this is actually blue. 32 is supposed to be green but looks yellow
 color_reset=`echo -e "\033[0m"`
 
 function status_sigil {
@@ -35,7 +35,12 @@ export PROMPT_COMMAND='status_sigil $?;\
 source ~/env/git_completion.sh
 
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "☒"
+    # [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+}
+
+function parse_git_dirty2 {
+    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "☒" || echo "$"
 }
 
 function parse_git_branch {
@@ -57,3 +62,6 @@ complete -F _comp_ssh ssh
 # \[ and \] delimiters are needed around non-printing sections of the prompt, otherwise readline gets confused
 
 export PS1='\[${sigilcolor}\]${sigil}\[${color_reset}\] \h:\W$(__git_ps1 "[\[${color_green}\]%s\[${color_red}\]$(parse_git_dirty)\[${color_reset}\]]")$ '
+# export PS1='\[${sigilcolor}\]${sigil}\[${color_reset}\] \h:\W$(__git_ps1 "[\[${color_green}\]%s\[${color_reset}\]]")$(parse_git_dirty2) '
+
+# export PS1='\[${sigilcolor}\]${sigil}\[${color_reset}\] \h:\W$ '

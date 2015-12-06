@@ -11,8 +11,19 @@ set convert-meta off
 "\ep": history-search-backward
 
 # http://www.reddit.com/r/commandline/comments/kbeoe/you_can_make_readline_and_bash_much_more_user/
+
+# filename matching & completion is case-insensitive
 set completion-ignore-case on
-set completion-prefix-display-length 2
-set show-all-if-ambiguous on
-set show-all-if-unmodified on
+# treat hyphens and underscores as equivalent for matching
 set completion-map-case on
+
+set completion-prefix-display-length 2
+
+# list multiple matches immediately, don't ring terminal bell
+set show-all-if-ambiguous on
+# similar to above, show matches without ringing bell
+set show-all-if-unmodified on
+
+
+# completed names to symlinked directories have slash automatically appended
+set mark-symlinked-directories on

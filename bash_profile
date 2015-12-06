@@ -1,6 +1,7 @@
+#!/bin/bash
 # .bash_profile
 
-. ~/env/globals.sh
+. ~/.config/globals.sh
 
 # Get the aliases and functions
 if [ -f $BASH_ENV ]; then
@@ -15,7 +16,16 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 shopt -s histappend
 
-source ~/env/my_shell_prompt.bash
+source ~/.config/my_shell_prompt.bash
+
+# these seem to be obsolete methods for installing rvm
+# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
 
 # 100316 JWM: http://rvm.beginrescueend.com/rvm/install/
-if [[ -s "$HOME/.rvm/scripts/rvm" ]]  ; then source "$HOME/.rvm/scripts/rvm" ; fi
+RUNRVM=/usr/local/rvm/scripts/rvm
+#RUNRVM=$HOME/.rvm/scripts/rvm
+if [[ -s "$RUNRVM" ]]  ; then source "$RUNRVM" ; fi
+
+### 14XXXX Heroku Toolbelt https://toolbelt.heroku.com/
+export PATH="/usr/local/heroku/bin:$PATH"

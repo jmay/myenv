@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # bash completion support for core Git.
 #
@@ -64,7 +65,9 @@ __gitdir ()
 
 __git_ps1 ()
 {
-  local g="$(git rev-parse --git-dir 2>/dev/null)"
+  # plain "git" is slow, something broken with executable searching
+  local git=`which git`
+  local g="$($git rev-parse --git-dir 2>/dev/null)"
   if [ -n "$g" ]; then
     local r
     local b
@@ -89,7 +92,7 @@ __git_ps1 ()
       then
         r="|BISECTING"
       fi
-      if ! b="$(git symbolic-ref HEAD 2>/dev/null)"
+      if ! b="$($git symbolic-ref HEAD 2>/dev/null)"
       then
         b="$(cut -c1-7 $g/HEAD)..."
       fi

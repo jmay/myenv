@@ -1,8 +1,20 @@
+# -*- Mode: Ruby -*-
 $stderr.puts "#{__FILE__} loading..."
 
-# expanded auto-completion
-require 'bond'
-Bond.start
+begin
+  # use Pry if it exists
+  require 'pry'
+  Pry.start || exit
+rescue LoadError
+end
+
+begin
+  # expanded auto-completion
+  require 'bond'
+  Bond.start
+rescue LoadError
+  # silent if bond is not installed
+end
 
 # http://feeds.feedburner.com/~r/RubyInside/~3/62868461/wirble-tab-completion-and-syntax-coloring-for-irb-336.html
 # require "wirble"
@@ -59,7 +71,7 @@ unless defined? Ripl
     #IRB.conf[:USE_READLINE] = true
 
     # Display the RAILS ENV in the prompt
-    # ie : [Development]>> 
+    # ie : [Development]>>
     IRB.conf[:PROMPT][:CUSTOM] = {
      :PROMPT_N => "[#{ENV["RAILS_ENV"].capitalize}]>> ",
      :PROMPT_I => "[#{ENV["RAILS_ENV"].capitalize}]>> ",
@@ -81,7 +93,7 @@ def local_methods(obj)
   obj.methods - obj.class.superclass.instance_methods
 end
 
-# List the various methods associated with an object.  Inspired by 
+# List the various methods associated with an object.  Inspired by
 # http://groups.google.com/group/comp.lang.ruby/browse_frm/thread/91d7c669214da8c3/1f220c54772b93fa?tvc=1&q=.irbrc#1f220c54772b93fa
 def list_methods(obj)
   inspectee = obj.class == Class ? obj : obj.class
@@ -105,13 +117,13 @@ class MethodFinder
   end
 
   def ==( val )
-      MethodFinder.show( @obj, val, *@args )    
+      MethodFinder.show( @obj, val, *@args )
   end
 
   # Find all methods on [anObject] which, when called with [args] return [expectedResult]
   def self.find( anObject, expectedResult, *args )
     anObject.methods.select { |name| anObject.method(name).arity == args.size }.
-                     select { |name| begin anObject.megaClone.method( name ).call(*args) == expectedResult; 
+                     select { |name| begin anObject.megaClone.method( name ).call(*args) == expectedResult;
                                      rescue; end }
   end
 
@@ -120,9 +132,9 @@ class MethodFinder
     $old_stderr = $stderr; $stderr = StringIO.new
     methods =
       find( anObject, expectedResult, *args ).each { |name|
-        print "#{anObject.inspect}.#{name}" 
+        print "#{anObject.inspect}.#{name}"
         print "(" + args.map { |o| o.inspect }.join(", ") + ")" unless args.empty?
-        puts " == #{expectedResult.inspect}" 
+        puts " == #{expectedResult.inspect}"
       }
     $stderr = $old_stderr
     methods
@@ -133,7 +145,7 @@ class Object
   def what?(*a)
     MethodFinder.new(self, *a)
   end
-  
+
   # Clone fails on numbers, but they're immutable anyway
   def megaClone
     begin self.clone; rescue; self; end
@@ -157,16 +169,15 @@ class Module
   end
 end
 
-def mate *args
-  flattened_args = args.map {|arg| "\"#{arg.to_s}\""}.join ' '
-  `mate #{flattened_args}`
-  nil
-end
-
-
 if File.exists?(Dir.pwd + "/.irb")
   puts "...loading .irb"
   load ".irb"
+end
+
+class Array
+  def nonuniq
+    each_with_object(Hash.new(0)) { |x,memo| memo[x] += 1; memo }.find_all { |_,count| count > 1 }.sort_by { |x| -x[1] }
+  end
 end
 
 $stderr.puts "...done."
