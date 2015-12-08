@@ -42,3 +42,8 @@ fi
 
 alias brake="bundle exec rake"
 alias be="bundle exec"
+
+# gg and gg2: display git log as colorized tree
+# don't know which of these I prefer
+alias gg='git log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"'
+alias gg2='git log --graph --pretty=oneline --abbrev-commit --decorate --all $*'

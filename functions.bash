@@ -64,3 +64,42 @@ body() {
     printf '%s\n' "$header"
     "$@"
 }
+
+
+# e and ec: open file(s) in emacs via emacsclient
+#
+# Useful options:
+# -n: No-wait; exit emacsclient immediately after sending file to emacs
+# -a: alternate editor. Empty string tells it to start emacs in daemon mode.
+# -c: Create a new frame (window; instead of using the terminal)
+
+function e {
+  /usr/local/bin/emacsclient -n -a "" $*
+}
+
+function ec {
+  /usr/local/bin/emacsclient -a "" $*
+}
+
+
+# git-churn (moved from script to function)
+#
+# Written by Corey Haines
+# Scriptified by Gary Bernhardt
+#
+# Put this anywhere on your $PATH (~/bin is recommended). Then git will see it
+# and you'll be able to do `git churn`.
+#
+# Show churn for whole repo:
+#   $ git churn
+#
+# Show churn for specific directories:
+#   $ git churn app lib
+#
+# Show churn for a time range:
+#   $ git churn --since='1 month ago'
+#
+# (These are all standard arguments to `git log`.)
+function git-churn {
+    git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g
+}
