@@ -1,0 +1,7 @@
+\set QUIET on
+-- for wide records, display in vertical key: value format
+\x auto
+-- show this symbol instead of blank for nulls in SELECT output
+\pset null ¤
+\set QUIET off
+\i ./.psqlrc
