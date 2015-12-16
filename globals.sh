@@ -28,7 +28,7 @@ export PATH=$MY_PATH:$LOCALS_PATH:$PG_PATH:$SYSTEM_PATH
 export LC_CTYPE=en_US.UTF-8
 
 #
-export EDITOR=$HOME/bin/e
+# export EDITOR=$HOME/bin/e
 
 # 080708 http://blog.macromates.com/2008/working-with-history-in-bash/
 export HISTCONTROL=erasedups # suppresses recording any duplicate entries in history
