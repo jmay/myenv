@@ -28,19 +28,21 @@ function status_sigil {
 export PROMPT_COMMAND='status_sigil $?;\
   echo -ne "\033]0;${HOSTNAME%%.*}: ";\
   basename "${PWD}";\
-  echo -ne "\007"'
+  echo -ne "\007";
+'
+#if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") ${HOSTNAME} $(pwd) $(history 1 | sed -E \'s/^ +[0-9]+ +//')" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi
 
 # 090327 http://www.hasmanybeers.com/2009/03/custom-bash-prompt-for-git-branches.html
 # adds the current git branch to the command prompt
 source ~/env/git_completion.sh
 
 function parse_git_dirty {
-    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "☒"
+    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "☒"
     # [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
 }
 
 function parse_git_dirty2 {
-    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "☒" || echo "$"
+    [[ $(`which git` status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "☒" || echo "$"
 }
 
 function parse_git_branch {

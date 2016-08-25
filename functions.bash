@@ -19,7 +19,7 @@ function status_sigil {
   fi
 }
 
-source ~/env/na/na.sh
+#source ~/env/na/na.sh
 
 
 # from http://brettterpstra.com/2013/02/10/the-joy-of-sshfs/

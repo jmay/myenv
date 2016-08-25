@@ -1,8 +1,8 @@
-# .bashrc 
+# .bashrc
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+  . /etc/bashrc
 fi
 
 . ~/env/aliases.bash
@@ -12,9 +12,9 @@ fi
 function p {
   if [ $# -gt 0 ]
   then
-  	ps aucx | head -1; ps aucx | grep -i $1
+    ps aucx | head -1; ps aucx | grep -i $1
   else
-  	ps aucx
+    ps aucx
   fi
 }
 

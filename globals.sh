@@ -27,8 +27,10 @@ export PATH=$MY_PATH:$LOCALS_PATH:$PG_PATH:$SYSTEM_PATH
 # says I need this for svn to handle UTF-8 correctly
 export LC_CTYPE=en_US.UTF-8
 
-#
-# export EDITOR=$HOME/bin/e
+# when some command invokes editing via $EDITOR, I want it to
+# open *fast* in a terminal emacs, not via emacsclient
+# (and I don't mind losing all my special configuration)
+export EDITOR="emacs -nw -Q"
 
 # 080708 http://blog.macromates.com/2008/working-with-history-in-bash/
 export HISTCONTROL=erasedups # suppresses recording any duplicate entries in history
@@ -41,12 +43,12 @@ export NOTESDIR=$HOME/Dropbox/Documents/Notes/
 
 # Java
 # export JAVA_HOME=/Library/Java/Home
-if [ -f "/usr/libexec/java_home" ]; then
-  export JAVA_HOME="$(/usr/libexec/java_home)"
-else
-  javabin=`which java`
-  export JAVA_HOME=`dirname $javabin`
-fi
+#if [ -f "/usr/libexec/java_home" ]; then
+#  export JAVA_HOME="$(/usr/libexec/java_home)"
+#else
+#  javabin=`which java`
+#  export JAVA_HOME=`dirname $javabin`
+#fi
 
 if [ -d $HOME/.ec2 ]; then
 	export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
