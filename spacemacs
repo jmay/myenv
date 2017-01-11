@@ -30,8 +30,7 @@ values."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
      csv
@@ -79,6 +78,10 @@ values."
      chinese
      ;; ranger
      nlinum
+     search-engine
+     floobits
+     spacemacs-editing
+     restclient
 
      ;; http://spacemacs.org/doc/LAYERS.html
      ;; SPC h SPC for list of available layers
@@ -91,21 +94,34 @@ values."
    dotspacemacs-additional-packages '(
                                       key-chord
                                       transpose-frame
-                                      ox-twbs
+                                      ox-twbs ;; twitter bootstrap
+                                      ox-gfm ;; github-flavored markdown
                                       org-jira
                                       paredit
                                       ox-reveal
                                       js2-mode
-                                      org-protocol-capture-html
+                                      ;; org-protocol-capture-html
+                                      org-bookmark-heading
+                                      ob-applescript
+                                      ;; ob-http
+                                      minimap
                                       ;; calfw
                                       ;; calfw-ical
+                                      visual-fill-column
+                                      highlight-indent-guides
                                       )
-   ;; A list of packages and/or extensions that will not be install and loaded.
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
+   ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   ;; Defines the behaviour of Spacemacs when installing packages.
+   ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
+   ;; `used-only' installs only explicitly used packages and uninstall any
+   ;; unused packages as well as their unused dependencies.
+   ;; `used-but-keep-unused' installs only the used packages but won't uninstall
+   ;; them if they become unused. `all' installs *all* packages supported by
+   ;; Spacemacs and never uninstall them. (default is `used-only')
+   dotspacemacs-install-packages 'used-only))
 
 ;; UNDER CONSIDERATION
 ;; spacemacs-ivy
@@ -133,15 +149,24 @@ values."
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
-   ;; when the current branch is not `develop'. (default t)
+   ;; when the current branch is not `develop'. Note that checking for
+   ;; new versions works via git commands, thus it calls GitHub services
+   ;; whenever you start Emacs. (default nil)
    dotspacemacs-check-for-update t
+   ;; If non-nil, a form that evaluates to a package directory. For example, to
+   ;; use different package directories for different Emacs versions, set this
+   ;; to `emacs-version'.
+   dotspacemacs-elpa-subdirectory nil
    ;; One of `vim', `emacs' or `hybrid'.
    ;; `hybrid' is like `vim' except that `insert state' is replaced by the
    ;; `hybrid state' with `emacs' key bindings. The value can also be a list
    ;; with `:variables' keyword (similar to layers). Check the editing styles
    ;; section of the documentation for details on available variables.
    ;; (default 'vim)
-   dotspacemacs-editing-style 'hybrid
+   dotspacemacs-editing-style '(hybrid :variables
+                                       hybrid-mode-enable-evilified-state t
+                                       hybrid-mode-enable-hjkl-bindings t
+                                       hybrid-mode-default-state 'normal)
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading t
    ;; Specify the startup banner. Default value is `official', it displays
@@ -151,13 +176,17 @@ values."
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner 'official
-   ;; List of items to show in the startup buffer. If nil it is disabled.
-   ;; Possible values are: `recents' `bookmarks' `projects' `agenda' `todos'.
-   ;; (default '(recents projects))
-   dotspacemacs-startup-lists '(recents projects)
-   ;; Number of recent files to show in the startup buffer. Ignored if
-   ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
-   dotspacemacs-startup-recent-list-size 10
+   ;; List of items to show in startup buffer or an association list of
+   ;; the form `(list-type . list-size)`. If nil then it is disabled.
+   ;; Possible values for list-type are:
+   ;; `recents' `bookmarks' `projects' `agenda' `todos'."
+   ;; List sizes may be nil, in which case
+   ;; `spacemacs-buffer-startup-lists-length' takes effect.
+   dotspacemacs-startup-lists '((recents . 10)
+                                (projects . 7)
+                                (todos . 5))
+   ;; True if the home buffer should respond to resize events.
+   dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
@@ -172,8 +201,8 @@ values."
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
-   ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
-   ;; size to make separators look not too crappy.
+   ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
+   ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
                                :size 14
                                :weight normal
@@ -205,6 +234,9 @@ values."
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
    ;; there. (default t)
    dotspacemacs-retain-visual-state-on-shift t
+   ;; If non-nil, J and K move lines up and down when in visual mode.
+   ;; (default nil)
+   dotspacemacs-visual-line-move-text nil
    ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
@@ -235,6 +267,11 @@ values."
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
+   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
+   ;; in all non-asynchronous sources. If set to `source', preserve individual
+   ;; source settings. Else, disable fuzzy matching in all sources.
+   ;; (default 'always)
+   dotspacemacs-helm-use-fuzzy 'always
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
    dotspacemacs-enable-paste-transient-state nil
@@ -282,6 +319,9 @@ values."
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
    dotspacemacs-line-numbers t
+   ;; Code folding method. Possible values are `evil' and `origami'.
+   ;; (default 'evil)
+   dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -351,13 +391,14 @@ you should place you code here."
   (setq org-agenda-files (list
                           "~/Dropbox/Documents/Notes/00 TODO & REMINDERS.org"
                           "~/dev/other/survey/TODO.org"
-                          "~/Dropbox/Documents/Notes/schoolistry.org"
                           ))
   (setq org-todo-keywords
         '((sequence "TODO" "DONE" "WIP" "HOLD" "WONT-DO")))
 
   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/")
   (setq org-reveal-mathjax t)
+
+  (setq org-special-ctrl-a/e t)
 
   ;; because I want different recentf history on different machines
   (setq recentf-save-file "~/.emacs.local/recentf")
@@ -369,19 +410,46 @@ you should place you code here."
   ;;   )
   ;; (add-hook 'org-mode-hook 'nolinum)
 
-  (use-package wttrin
-    :ensure t
-    :commands (wttrin)
-    :init
-    (setq wttrin-default-cities '("Los Altos"
-                                  "San Francisco"
-                                  "Brisbane")))
+  ;; (use-package wttrin
+  ;;   :ensure t
+  ;;   :commands (wttrin)
+  ;;   :init
+  ;;   (setq wttrin-default-cities '("Los Altos"
+  ;;                                 "San Francisco"
+  ;;                                 "Brisbane")))
 
   ;; I don't like auto-complete in org-mode, it gives me too much junk.
   (spacemacs|disable-company org-mode)
 
   ;; (setq split-height-threshold nil)
   ;; (setq split-width-threshold 0)
+
+  ;; avy-goto-char-timer gives you a short time to enter multiple chars of a
+  ;; string, and then switches to regular avy-jump for the matches.
+  (spacemacs/set-leader-keys "jc" 'avy-goto-char-timer)
+
+  ;; This makes mouse-selection immediately copy, without needing an extra command.
+  ;; (setq mouse-drag-copy-region t)
+
+  ;; http://www.mostlymaths.net/2016/09/more-emacs-configuration-tweaks.html
+  ;; multiple-cursors using (meta+) mouse clicks
+  (global-unset-key (kbd "M-<down-mouse-1>"))
+  (global-set-key (kbd "M-<mouse-1>") 'mc/toggle-cursor-on-click)
+
+  ;; http://www.johndcook.com/blog/2015/02/01/rare-bigrams/
+  ;; (key-chord-define-global "kk" 'function)
+  (key-chord-define-global "xz" 'rspec-rerun)
+
+  ;; until I can figure out what purpose-mode is for
+  ;; https://github.com/syl20bnr/spacemacs/issues/7453
+  (pupo-mode -1)
+  (purpose-mode -1)
+
+  (desktop-save-mode 1)
+
+  ;; 'fill or 'column or 'character
+  (setq highlight-indent-guides-method 'character)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -429,11 +497,12 @@ you should place you code here."
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(org-agenda-files
    (quote
-    ("~/Dropbox/Documents/Notes/basis_school.org" "~/Dropbox/Documents/Notes/00 TODO & REMINDERS.org" "~/dev/other/survey/TODO.org" "~/Dropbox/Documents/Notes/schoolistry.org")))
+    ("~/Dropbox/Documents/Notes/projects/surveyapp.org" "~/Dropbox/Documents/Notes/projects/schoolistry.org" "~/Dropbox/Documents/Notes/00 TODO & REMINDERS.org" "~/dev/other/survey/TODO.org")))
  '(org-agenda-span (quote fortnight))
+ '(org-babel-python-command "python3")
  '(package-selected-packages
    (quote
-    (calfw google-maps org-mac-link swiper ivy srefactor nlinum-relative nlinum helm-gtags ggtags emoji-cheat-sheet-plus company-emoji org-protocol-capture-html slack emojify circe oauth2 websocket org-projectile mwim github-search flyspell-correct-helm flyspell-correct evil-unimpaired chinese-pyim-basedict marshal ht wttrin ox-reveal paredit csv-mode org-jira yaml-mode ox-twbs org-download evil-visual-mark-mode pinyinlib transpose-frame key-chord dash-functional tern skewer-mode simple-httpd json-snatcher json-reformat web-completion-data powerline rake inflections spinner alert log4e gntp parent-mode request fringe-helper logito pcache pkg-info epl flx magit-popup git-commit iedit anzu highlight pos-tip popup async s eyebrowse column-enforce-mode pangu-spacing find-by-pinyin-dired chinese-pyim ace-pinyin ace-jump-mode erc-gitter ranger erc-yt erc-view-log erc-terminal-notifier erc-social-graph erc-image erc-hl-nicks f uuidgen command-log-mode helm-dash dash-at-point livid-mode link-hint evil-ediff eshell-z company-shell auto-complete avy packed inf-ruby smartparens with-editor gh projectile helm helm-core yasnippet multiple-cursors hydra dash ag ruby-refactor helm-flyspell auto-dictionary zenburn-theme monokai-theme solarized-theme typo web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode projectile-rails magit-gh-pulls less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode helm-css-scss haml-mode github-clone github-browse-file git-link gist fish-mode feature-mode emmet-mode company-web company-tern coffee-mode reveal-in-osx-finder pbcopy osx-trash launchctl rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv chruby bundler xterm-color toc-org smeargle shell-pop orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter gh-md flycheck-pos-tip flycheck evil-magit eshell-prompt-extras esh-help diff-hl company-statistics company-quickhelp company auto-yasnippet ac-ispell ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line quelpa package-build use-package which-key bind-key bind-map evil spacemacs-theme)))
+    (highlight-indent-guides minitest insert-shebang hide-comnt helm-purpose window-purpose imenu-list visual-fill-column pug-mode osx-dictionary dumb-jump undo-tree ob-applescript minimap org-bookmark-heading floobits engine-mode calfw google-maps org-mac-link swiper ivy srefactor nlinum-relative nlinum helm-gtags ggtags emoji-cheat-sheet-plus company-emoji org-protocol-capture-html slack emojify circe oauth2 websocket org-projectile mwim github-search flyspell-correct-helm flyspell-correct evil-unimpaired chinese-pyim-basedict marshal ht wttrin ox-reveal paredit csv-mode org-jira yaml-mode ox-twbs org-download evil-visual-mark-mode pinyinlib transpose-frame key-chord dash-functional tern skewer-mode simple-httpd json-snatcher json-reformat web-completion-data powerline rake inflections spinner alert log4e gntp parent-mode request fringe-helper logito pcache pkg-info epl flx magit-popup git-commit iedit anzu highlight pos-tip popup async s eyebrowse column-enforce-mode pangu-spacing find-by-pinyin-dired chinese-pyim ace-pinyin ace-jump-mode erc-gitter ranger erc-yt erc-view-log erc-terminal-notifier erc-social-graph erc-image erc-hl-nicks f uuidgen command-log-mode helm-dash dash-at-point livid-mode link-hint evil-ediff eshell-z company-shell auto-complete avy packed inf-ruby smartparens with-editor gh projectile helm helm-core yasnippet multiple-cursors hydra dash ag ruby-refactor helm-flyspell auto-dictionary zenburn-theme monokai-theme solarized-theme typo web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode projectile-rails magit-gh-pulls less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode helm-css-scss haml-mode github-clone github-browse-file git-link gist fish-mode feature-mode emmet-mode company-web company-tern coffee-mode reveal-in-osx-finder pbcopy osx-trash launchctl rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv chruby bundler xterm-color toc-org smeargle shell-pop orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter gh-md flycheck-pos-tip flycheck evil-magit eshell-prompt-extras esh-help diff-hl company-statistics company-quickhelp company auto-yasnippet ac-ispell ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line quelpa package-build use-package which-key bind-key bind-map evil spacemacs-theme)))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
@@ -461,6 +530,7 @@ you should place you code here."
      (340 . "#2790C3")
      (360 . "#66D9EF"))))
  '(vc-annotate-very-old-color nil)
+ '(visual-fill-column-center-text t)
  '(weechat-color-list
    (unspecified "#272822" "#3E3D31" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0"))
  '(xterm-color-names
@@ -474,3 +544,99 @@ you should place you code here."
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#839496")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#002b36" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#93a1a1")
+ '(highlight-tail-colors
+   (quote
+    (("#3E3D31" . 0)
+     ("#67930F" . 20)
+     ("#349B8D" . 30)
+     ("#21889B" . 50)
+     ("#968B26" . 60)
+     ("#A45E0A" . 70)
+     ("#A41F99" . 85)
+     ("#3E3D31" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
+ '(hl-fg-colors
+   (quote
+    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
+ '(magit-diff-use-overlays nil)
+ '(nrepl-message-colors
+   (quote
+    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
+ '(org-agenda-files
+   (quote
+    ("~/Dropbox/Documents/Notes/projects/surveyapp.org" "~/Dropbox/Documents/Notes/projects/schoolistry.org" "~/Dropbox/Documents/Notes/00 TODO & REMINDERS.org" "~/dev/other/survey/TODO.org")))
+ '(org-agenda-span (quote fortnight))
+ '(org-babel-python-command "python3")
+ '(package-selected-packages
+   (quote
+    (restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well winum unfill org highlight-indent-guides minitest insert-shebang hide-comnt helm-purpose window-purpose imenu-list visual-fill-column pug-mode osx-dictionary dumb-jump undo-tree ob-applescript minimap org-bookmark-heading floobits engine-mode calfw google-maps org-mac-link swiper ivy srefactor nlinum-relative nlinum helm-gtags ggtags emoji-cheat-sheet-plus company-emoji org-protocol-capture-html slack emojify circe oauth2 websocket org-projectile mwim github-search flyspell-correct-helm flyspell-correct evil-unimpaired chinese-pyim-basedict marshal ht wttrin ox-reveal paredit csv-mode org-jira yaml-mode ox-twbs org-download evil-visual-mark-mode pinyinlib transpose-frame key-chord dash-functional tern skewer-mode simple-httpd json-snatcher json-reformat web-completion-data powerline rake inflections spinner alert log4e gntp parent-mode request fringe-helper logito pcache pkg-info epl flx magit-popup git-commit iedit anzu highlight pos-tip popup async s eyebrowse column-enforce-mode pangu-spacing find-by-pinyin-dired chinese-pyim ace-pinyin ace-jump-mode erc-gitter ranger erc-yt erc-view-log erc-terminal-notifier erc-social-graph erc-image erc-hl-nicks f uuidgen command-log-mode helm-dash dash-at-point livid-mode link-hint evil-ediff eshell-z company-shell auto-complete avy packed inf-ruby smartparens with-editor gh projectile helm helm-core yasnippet multiple-cursors hydra dash ag ruby-refactor helm-flyspell auto-dictionary zenburn-theme monokai-theme solarized-theme typo web-mode web-beautify tagedit sql-indent slim-mode scss-mode sass-mode projectile-rails magit-gh-pulls less-css-mode json-mode js2-refactor js2-mode js-doc jade-mode helm-css-scss haml-mode github-clone github-browse-file git-link gist fish-mode feature-mode emmet-mode company-web company-tern coffee-mode reveal-in-osx-finder pbcopy osx-trash launchctl rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv chruby bundler xterm-color toc-org smeargle shell-pop orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow magit htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe+ git-gutter-fringe git-gutter+ git-gutter gh-md flycheck-pos-tip flycheck evil-magit eshell-prompt-extras esh-help diff-hl company-statistics company-quickhelp company auto-yasnippet ac-ispell ws-butler window-numbering volatile-highlights vi-tilde-fringe spaceline smooth-scrolling restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line quelpa package-build use-package which-key bind-key bind-map evil spacemacs-theme)))
+ '(pos-tip-background-color "#A6E22E")
+ '(pos-tip-foreground-color "#272822")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(visual-fill-column-center-text t)
+ '(weechat-color-list
+   (unspecified "#272822" "#3E3D31" "#A20C41" "#F92672" "#67930F" "#A6E22E" "#968B26" "#E6DB74" "#21889B" "#66D9EF" "#A41F99" "#FD5FF0" "#349B8D" "#A1EFE4" "#F8F8F2" "#F8F8F0"))
+ '(xterm-color-names
+   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
+ '(xterm-color-names-bright
+   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+)
