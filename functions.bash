@@ -19,9 +19,6 @@ function status_sigil {
   fi
 }
 
-#source ~/env/na/na.sh
-
-
 # from http://brettterpstra.com/2013/02/10/the-joy-of-sshfs/
 # Remote Mount (sshfs)
 # creates mount folder and mounts the remote filesystem

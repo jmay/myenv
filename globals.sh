@@ -43,17 +43,11 @@ export NOTESDIR=$HOME/Dropbox/Documents/Notes/
 
 # Java
 # export JAVA_HOME=/Library/Java/Home
-#if [ -f "/usr/libexec/java_home" ]; then
-#  export JAVA_HOME="$(/usr/libexec/java_home)"
-#else
-#  javabin=`which java`
-#  export JAVA_HOME=`dirname $javabin`
-#fi
-
-if [ -d $HOME/.ec2 ]; then
-	export EC2_PRIVATE_KEY="$(/bin/ls $HOME/.ec2/pk-*.pem)"
-	export EC2_CERT="$(/bin/ls $HOME/.ec2/cert-*.pem)"
-	export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.5.2.3/jars"
+if [ -f "/usr/libexec/java_home" ]; then
+  export JAVA_HOME="$(/usr/libexec/java_home)"
+else
+  javabin=`which java`
+  export JAVA_HOME=`dirname $javabin`
 fi
 
 # suffixes to ignore when doing filename completion

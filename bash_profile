@@ -18,9 +18,6 @@ shopt -s histappend
 
 source ~/.config/my_shell_prompt.bash
 
-# these seem to be obsolete methods for installing rvm
-# PATH=$PATH:/usr/local/rvm/bin # Add RVM to PATH for scripting
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
@@ -31,13 +28,3 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # TODO: try this again in 2017
 # . $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/jmay/Downloads/google-cloud-sdk/path.bash.inc ]; then
-  source '/Users/jmay/Downloads/google-cloud-sdk/path.bash.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/jmay/Downloads/google-cloud-sdk/completion.bash.inc ]; then
-  source '/Users/jmay/Downloads/google-cloud-sdk/completion.bash.inc'
-fi
