@@ -28,3 +28,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 # TODO: try this again in 2017
 # . $HOME/.asdf/asdf.sh
 # . $HOME/.asdf/completions/asdf.bash
+
+# https://github.com/clvv/fasd
+eval "$(fasd --init auto)"

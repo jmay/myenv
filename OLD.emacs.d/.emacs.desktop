@@ -1,0 +1,635 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Tue Nov 17 14:56:26 2015
+;; Desktop file format version 206
+;; Emacs version 24.5.1
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (22091 45210 992381 0) (desktop . "206") "jmay@machigi.hackerdojo.com" nil nil ((((font-backend mac-ct ns) (fontsize . 0) (font . "-*-Source Code Pro-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1") (border-width . 0) (internal-border-width . 2) (vertical-scroll-bars . right) (foreground-color . "#839496") (background-color . "#002b36") (line-spacing) (left-fringe . 8) (right-fringe . 8) (menu-bar-lines . 1) (tool-bar-lines . 0) (title) (icon-type) (auto-raise) (auto-lower) (cursor-type . box) (scroll-bar-width . 15) (alpha) (fullscreen) (display . "machigi.hackerdojo.com") (client . nowait) (environment "rvm_user_install_flag=0" "_system_name=OSX" "RUBY_VERSION=ruby-2.2.1" "DISPLAY=/private/tmp/com.apple.launchd.4TsUk6Q9Et/org.macosforge.xquartz:0" "PROMPT_COMMAND=eval \"na --prompt\";status_sigil $?;\\\n  echo -ne \"\\033]0;${HOSTNAME%%.*}: \";\\\n  basename \"${PWD}\";\\\n  echo -ne \"\\007\"" "MY_PATH=/Users/jmay/bin" "PG_PATH=/Applications/Postgres.app/Contents/Versions/9.4/bin" "LC_CTYPE=en_US.UTF-8" "GEM_PATH=/usr/local/rvm/gems/ruby-2.2.1:/usr/local/rvm/gems/ruby-2.2.1@global" "LOGNAME=jmay" "LOCALS_PATH=/usr/local/bin:/usr/local/sbin" "BASH_ENV=/Users/jmay/.bashrc" "ITERM_SESSION_ID=w0t0p0" "SHLVL=1" "COLORFGBG=12;8" "HOME=/Users/jmay" "FIGNORE=.o:~:Application Scripts" "rvm_version=1.26.11 (latest)" "HISTCONTROL=erasedups" "XPC_SERVICE_NAME=0" "_system_version=10.11" "_system_arch=x86_64" "XPC_FLAGS=0x0" "NODE_PATH=/usr/local/lib/node_modules" "ITERM_PROFILE=Default" "NOTESDIR=/Users/jmay/Dropbox/Documents/Notes/" "LANG=en_US.UTF-8" "EDITOR=/Users/jmay/bin/e" "JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_13.jdk/Contents/Home" "PWD=/Users/jmay" "rvm_loaded_flag=1" "PATH=/usr/local/heroku/bin:/Users/jmay/bin:/usr/local/bin:/usr/local/sbin:/Applications/Postgres.app/Contents/Versions/9.4/bin:/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/rvm/bin" "rvm_prefix=/usr/local" "__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0" "SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.G0fNDIplVT/Listeners" "rvm_path=/usr/local/rvm" "SYSTEM_PATH=/usr/local/rvm/gems/ruby-2.2.1/bin:/usr/local/rvm/gems/ruby-2.2.1@global/bin:/usr/local/rvm/rubies/ruby-2.2.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/rvm/bin" "_system_type=Darwin" "rvm_stored_umask=0033" "USER=jmay" "MY_RUBY_HOME=/usr/local/rvm/rubies/ruby-2.2.1" "Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.uFskBUMx8j/Render" "IRBRC=/usr/local/rvm/rubies/ruby-2.2.1/.irbrc" "TMPDIR=/var/folders/2z/bfzzkjd10zvf8h_s31pc1zh80000gn/T/" "HISTSIZE=10000" "TERM=xterm" "SHELL=/bin/bash" "GEM_HOME=/usr/local/rvm/gems/ruby-2.2.1" "rvm_bin_path=/usr/local/rvm/bin" "TERM_PROGRAM=iTerm.app") (display-type . color) (background-mode . dark) (cursor-color . "#839496") (maximized) (frameset--id . "1C61-E735-2D50-0E79") (frameset--mini t . t) (height . 76) (width . 315) (modeline . t) (minibuffer . t) (unsplittable) (left . 0) (top . 27) (right-divider-width . 0) (bottom-divider-width . 0) (icon-name) (visibility . t) (explicit-name) (tool-bar-position . top)) ((min-height . 4) (min-width . 20) (min-height-ignore . 4) (min-width-ignore . 12) (min-height-safe . 1) (min-width-safe . 4) (min-pixel-height . 72) (min-pixel-width . 160) (min-pixel-height-ignore . 72) (min-pixel-width-ignore . 96) (min-pixel-height-safe . 18) (min-pixel-width-safe . 32)) hc (pixel-width . 2556) (pixel-height . 1364) (total-width . 320) (total-height . 75) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 1276) (pixel-height . 1364) (total-width . 160) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "*Flycheck errors*" (selected) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 1) (start . 1))) (leaf (last . t) (pixel-width . 1280) (pixel-height . 1364) (total-width . 160) (total-height . 75) (normal-height . 1.0) (normal-width . 0.5) (buffer "20_accounts.org" (selected . t) (hscroll . 0) (fringes 8 8 nil) (margins nil) (scroll-bars 15 2 t nil) (vscroll . 0) (dedicated) (point . 602) (start . 1)))) (((foreground-color . "unspecified-fg") (background-color . "unspecified-bg") (display-type . mono) (background-mode . dark) (cursor-color . "white") (tool-bar-lines . 0) (menu-bar-lines . 1) (font . "tty") (height . 10) (width . 10) (modeline . t) (unsplittable) (frameset--id . "0ED6-7821-C50D-B138") (frameset--mini t) (minibuffer . t)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 2) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 72) (min-pixel-width . 80) (min-pixel-height-ignore . 2) (min-pixel-width-ignore . 2) (min-pixel-height-safe . 1) (min-pixel-width-safe . 2)) leaf (pixel-width . 10) (pixel-height . 8) (total-width . 10) (total-height . 8) (normal-height . 1.0) (normal-width . 1.0) (buffer "*scratch*" (selected) (hscroll . 0) (fringes 0 0 nil) (margins 5) (scroll-bars 0 0 t nil) (vscroll . 0) (dedicated) (point . 192) (start . 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list '("/Users/jmay/dev/veriphyr/gillette/TAGS"))
+(setq search-ring '("nt is" "defaul" "import" "fergus" "335" "confirm" "q" "personal" "01_init.el" "q" "g" "app" "harmony" "castro" "anderso" "sreg"))
+(setq regexp-search-ring '("last_login" "'hr'" "chinese" "namor" "extract_names" "def ex" "def extrac" "'msad'" "'RIS'" "badwords" "'m" "unfill" "org-proto" "org-modul" "_ou" "ous"))
+(setq register-alist nil)
+(setq file-name-history '("~/dev/veriphyr/gillette/resources.rb" "~/.psqlrc" "~/Dropbox/Documents/Notes/emacs-todo.org" "~/.emacs.d/personal/50_myemacs.org" "/Users/jmay/dev/schoolistry/rails/org-protocol:/capture:www.google.com/" "~/.deft/journal.org" "/Users/jmay/dev/schoolistry/rails/.git/COMMIT_EDITMSG" "~/Dropbox/Documents/Notes/May Family Foundation MFF.org" "~/dev/schoolistry/rails/app/models/schoolistry/school.rb" "~/dev/schoolistry/rails/app/models/schoolistry/district.rb" "~/Dropbox/Documents/Notes/gadgets.org" "~/Dropbox/Documents/Notes/job_opportunities.org" "/Users/jmay/.emacs.d/.git/COMMIT_EDITMSG" "~/Dropbox/Documents/Notes/schoolistry.org" "/Users/jmay/Dropbox/Documents/Projects/Veriphyr/Clients/Gillette/gillette.git/COMMIT_EDITMSG" "~/dev/veriphyr/gillette/startup.rb" "~/dev/veriphyr/gillette/activity.rb" "~/dev/veriphyr/gillette/grp/XX_monthly_processing.org" "~/dev/veriphyr/gillette/grp/procedure.org" "~/dev/veriphyr/gillette/grp/log.org" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/.emacs.d/.git/COMMIT_EDITMSG" "~/dev/veriphyr/gillette/grp/99_consolidate/20_output.org" "/Users/jmay/.emacs.d/.git/COMMIT_EDITMSG" "/Users/jmay/.emacs.d/.git/COMMIT_EDITMSG" "~/.emacs.d/personal/999_myemacs.org" "~/Dropbox/Documents/Notes/career_personal_goals.org" "~/dev/veriphyr/gillette/aff_aud_aggregation.js" "~/.emacs.d/personal/90_bindings.el" "~/Dropbox/Documents/Notes/emacs_resources.org" "~/dev/veriphyr/gillette/grp/40_qes/10_qes.org" "~/dev/veriphyr/gillette/grp/.vmonth" "~/dev/veriphyr/gillette/grp/99_consolidate/10_merge.org" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "~/dev/veriphyr/gillette/grp/99_consolidate/15_surrogates.org" "~/Dropbox/Documents/Notes/basis_school.org" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "~/Dropbox/Documents/Notes/technology_to_play_with.org" "~/dev/schoolistry/rails/prod.sql.org" "/Users/jmay/Dropbox/Documents/Projects/Veriphyr/Clients/Gillette/gillette.git/COMMIT_EDITMSG" "~/Dropbox/Documents/Notes/education_thoughts.org" "~/Dropbox/Documents/Notes/social_networking_chat_forums.org" "/Users/jmay/Dropbox/Documents/Projects/Veriphyr/Clients/Gillette/gillette.git/COMMIT_EDITMSG" "/Users/jmay/Dropbox/Documents/Projects/Veriphyr/Clients/Gillette/gillette.git/COMMIT_EDITMSG" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "~/dev/veriphyr/gillette/grp/grp1409.out" "/Users/jmay/dev/schoolistry/rails" "/Users/jmay/dev/veriphyr/gillette" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "~/Dropbox/Documents/Tech Reference/Tinderbox User's Manual  2.3.0.pdf" "/Users/jmay/.emacs.d/.git/COMMIT_EDITMSG" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "/Users/jmay/Dropbox/Documents/Projects/Veriphyr/Clients/Gillette/gillette.git/COMMIT_EDITMSG" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "~/.emacs.d/personal/92_org.el" "~/Dropbox/Documents/Notes/school_textbooks.org" "~/dev/kandan/app/models/channel.rb" "/Users/jmay/dev" "/Users/jmay/Dropbox/Documents/Notes" "/Users/jmay/.emacs.d/" "~/.emacs.d/themes/jmay2-theme.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/regular_cycle/20_accounts.org"
+  "20_accounts.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode text-scale-mode)
+  602
+  '(4798 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/regular_cycle/10_schema.org"
+  "10_schema.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  3754
+  '(4770 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "regular_cycle"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  314
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/grp/regular_cycle/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/activity.rb"
+  "activity.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  12075
+  '(20272 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/resources.rb"
+  "resources.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  2089
+  '(9067 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/log.org"
+  "log.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  23716
+  '(25302 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "namor"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  291
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/namor/lib/namor/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "lib"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  223
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/namor/lib/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "namor"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  779
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/namor/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "dev"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  1882
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "veriphyr"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  288
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "gillette"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  4283
+  '(4586 nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/career_personal_goals.org"
+  "career_personal_goals.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  4241
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/01 Other Tasks.org"
+  "01 Other Tasks.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  2580
+  '(2505 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/job_opportunities.org"
+  "job_opportunities.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  25858
+  '(25858 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/reporting.rb"
+  "reporting.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  6995
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "grp"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  2155
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/grp/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "99_consolidate"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  577
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/grp/99_consolidate/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "personal"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  431
+  '(nil nil)
+  t
+  '("/Users/jmay/.emacs.d/personal/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/.emacs.d/personal/50_myemacs.org"
+  "50_myemacs.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  32352
+  '(32506 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/.psqlrc"
+  ".psqlrc"
+  'fundamental-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode)
+  187
+  '(174 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . utf-8-unix)))
+
+(desktop-create-buffer 206
+  nil
+  ".emacs.d"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  1456
+  '(nil nil)
+  t
+  '("/Users/jmay/.emacs.d/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/emacs-todo.org"
+  "emacs-todo.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  7874
+  '(7842 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/.deft/journal.org"
+  "journal.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  132033
+  '(131276 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/data_tools/lib/data_tools/conversions.rb"
+  "conversions.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  326
+  '(304 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "data_tools"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  286
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/data_tools/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/99_consolidate/20_output.org"
+  "20_output.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  1636
+  '(741 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/procedure.org"
+  "procedure.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  5764
+  '(5204 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/startup.rb"
+  "startup.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  965
+  '(890 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "00_monthly_loads"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  259
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/grp/00_monthly_loads/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/00_monthly_loads/05_schema.org"
+  "05_schema.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  1
+  '(22005 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "01_hr"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  248
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/grp/01_hr/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/grp/01_hr/10_load.org"
+  "10_load.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  1295
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/arbuelo_house_fixtures_appliances_utilities.org"
+  "arbuelo_house_fixtures_appliances_utilities.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  286
+  '(8791 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/schoolistry.org"
+  "schoolistry.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  248393
+  '(79449 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/public/robots.txt"
+  "robots.txt"
+  'markdown-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode)
+  114
+  '(80 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  nil
+  "rails"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode diff-hl-dired-mode)
+  435
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/schoolistry/rails/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/May Family Foundation MFF.org"
+  "May Family Foundation MFF.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  82
+  '(21407 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/.env.development"
+  ".env.development"
+  'fundamental-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode text-scale-mode)
+  1205
+  '(1065 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/Gemfile"
+  "Gemfile"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode projectile-rails-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  1254
+  '(45 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/app/models/schoolistry/search.rb"
+  "search.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode projectile-rails-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  930
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/app/models/schoolistry/school.rb"
+  "school.rb"
+  'ruby-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode ruby-refactor-mode highlight-indentation-mode highlight-indentation-current-column-mode inf-ruby-minor-mode projectile-rails-mode ruby-tools-mode subword-mode rspec-verifiable-mode)
+  1
+  '(17664 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "app"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode diff-hl-dired-mode)
+  520
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/schoolistry/rails/app/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "models"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode diff-hl-dired-mode)
+  416
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/schoolistry/rails/app/models/")
+  nil)
+
+(desktop-create-buffer 206
+  nil
+  "schoolistry"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode diff-hl-dired-mode)
+  1268
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/schoolistry/rails/app/models/schoolistry/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/schoolistry/rails/prod.sql.org"
+  "prod.sql.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode projectile-rails-mode org-indent-mode)
+  48819
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/aff_aud_aggregation.js"
+  "aff_aud_aggregation.js"
+  'js2-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode linum-mode auto-complete-mode highlight-indentation-mode highlight-indentation-current-column-mode js2-imenu-extras-mode)
+  73
+  '(3761 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/dev/veriphyr/gillette/sql/activity.sql.org"
+  "activity.sql.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  1
+  '(9668 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "sql"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  305
+  '(nil nil)
+  t
+  '("/Users/jmay/dev/veriphyr/gillette/sql/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/gadgets.org"
+  "gadgets.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  169
+  '(4694 nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/.emacs.d/personal/custom.el"
+  "custom.el"
+  'emacs-lisp-mode
+  '(prelude-mode global-auto-revert-mode smartparens-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode eldoc-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-mode auto-compile-on-load-mode linum-mode auto-complete-mode highlight-indentation-mode highlight-indentation-current-column-mode elisp-slime-nav-mode rainbow-delimiters-mode rainbow-mode)
+  831
+  '(723 nil)
+  nil
+  nil
+  '((buffer-file-coding-system . prefer-utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  nil
+  "Notes"
+  'dired-mode
+  '(prelude-mode global-auto-revert-mode volatile-highlights-mode projectile-mode anzu-mode helm-mode override-global-mode auto-compile-on-load-mode diff-hl-dired-mode)
+  311
+  '(nil nil)
+  t
+  '("/Users/jmay/Dropbox/Documents/Notes/")
+  nil)
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/veriphyr.org"
+  "veriphyr.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  88221
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/education.org"
+  "education.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  203
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/basis_school.org"
+  "basis_school.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  64216
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+
+(desktop-create-buffer 206
+  "/Users/jmay/Dropbox/Documents/Notes/00 TODO & REMINDERS.org"
+  "00 TODO & REMINDERS.org"
+  'org-mode
+  '(auto-fill-mode abbrev-mode prelude-mode global-auto-revert-mode volatile-highlights-mode flyspell-mode projectile-mode anzu-mode whitespace-mode undo-tree-mode diff-hl-mode helm-mode flycheck-mode override-global-mode auto-compile-on-load-mode org-indent-mode)
+  1333
+  '(nil nil)
+  nil
+  nil
+  '((indent-tabs-mode) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t)))
+

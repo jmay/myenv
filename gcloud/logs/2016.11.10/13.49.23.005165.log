@@ -1,0 +1,146 @@
+2016-11-10 13:49:23,036 DEBUG    root            Loaded Command Group: ['gcloud', 'init']
+2016-11-10 13:49:23,038 DEBUG    root            Running gcloud.init with Namespace(__calliope_internal_deepest_parser=ArgumentParser(prog='gcloud.init', usage=None, description='Initialize or reinitialize gcloud.', version=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=False), account=None, authority_selector=None, authorization_token_file=None, calliope_command=<googlecloudsdk.calliope.backend.Command object at 0x10f7e4a90>, command_path=['gcloud', 'init'], configuration=None, console_only=False, credential_file_override=None, document=None, flatten=None, format=None, h=None, help=None, http_timeout=None, log_http=None, obsolete_project_arg=None, project=None, quiet=None, skip_diagnostics=False, trace_email=None, trace_log=None, trace_token=None, user_output_enabled=None, verbosity='warning', version=None).
+2016-11-10 13:49:23,038 INFO     ___FILE_ONLY___ Welcome! This command will take you through the configuration of gcloud.
+
+
+2016-11-10 13:49:23,039 INFO     ___FILE_ONLY___ Your current configuration has been set to: [default]
+
+
+2016-11-10 13:49:23,039 INFO     ___FILE_ONLY___ You can skip diagnostics next time by using the following flag:
+
+2016-11-10 13:49:23,039 INFO     ___FILE_ONLY___   gcloud init --skip-diagnostics
+
+
+2016-11-10 13:49:23,040 INFO     ___FILE_ONLY___ Network diagnostic detects and fixes local network connection issues.
+
+2016-11-10 13:49:23,040 INFO     ___FILE_ONLY___ Checking network connection...
+2016-11-10 13:49:26,217 INFO     ___FILE_ONLY___ Reachability Check passed.
+
+2016-11-10 13:49:26,217 INFO     ___FILE_ONLY___ Network diagnostic (1/1 checks) passed.
+
+
+2016-11-10 13:49:26,221 DEBUG    root            Loaded Command Group: ['gcloud', 'auth']
+2016-11-10 13:49:26,225 DEBUG    root            Loaded Command Group: ['gcloud', 'auth', 'list']
+2016-11-10 13:49:26,226 INFO     root            Executing: [gcloud auth list]
+2016-11-10 13:49:26,227 DEBUG    root            Running gcloud.auth.list with Namespace(__calliope_internal_deepest_parser=ArgumentParser(prog='gcloud.auth.list', usage=None, description='Lists accounts whose credentials have been obtained using `gcloud init`,\n`gcloud auth login` and `gcloud auth activate-service-account`, and shows\nwhich account is active. The active account is used by gcloud and other Cloud\nSDK tools to access Google Cloud Platform.\n\n## EXAMPLES\n\nTo list the active account name:\n\n  $ gcloud auth list --filter=status:ACTIVE --format="value(account)"\n\nTo list the inactive account names with prefix `test`:\n\n  $ gcloud auth list --filter="-status:ACTIVE account:test*" --format="value(account)"', version=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=False), account=None, authority_selector=None, authorization_token_file=None, calliope_command=<googlecloudsdk.calliope.backend.Command object at 0x10f8c75d0>, command_path=['gcloud', 'auth', 'list'], configuration=None, credential_file_override=None, document=None, filter=None, filter_account=None, flatten=None, format=None, h=None, help=None, http_timeout=None, limit=None, log_http=None, page_size=None, project=None, quiet=None, sort_by=None, trace_email=None, trace_log=None, trace_token=None, user_output_enabled='false', verbosity='none', version=None).
+2016-11-10 13:49:26,227 DEBUG    oauth2client.multistore_file Initializing empty multistore file
+2016-11-10 13:49:26,228 INFO     root            Display disabled.
+2016-11-10 13:49:26,228 DEBUG    root            Checking for updates...
+2016-11-10 13:49:26,551 DEBUG    root            Updating notification cache...
+2016-11-10 13:49:28,623 DEBUG    root            Loaded Command Group: ['gcloud', 'auth', 'login']
+2016-11-10 13:49:28,624 INFO     root            Executing: [gcloud auth login --force --brief]
+2016-11-10 13:49:28,625 DEBUG    root            Running gcloud.auth.login with Namespace(__calliope_internal_deepest_parser=ArgumentParser(prog='gcloud.auth.login', usage=None, description='Obtains access credentials for your user account via a web-based authorization\nflow. When this command completes successfully, it sets the active account\nin the current configuration to the account specified. If no configuration\nexists, it creates a configuration named default.\n\nIf valid credentials for an account are already available from a prior\nauthorization, the account is set to active without rerunning the flow.\n\nUse `gcloud auth list` to view credentialed accounts.', version=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=False), account=None, activate=True, authority_selector=None, authorization_token_file=None, brief=True, calliope_command=<googlecloudsdk.calliope.backend.Command object at 0x10f836890>, command_path=['gcloud', 'auth', 'login'], configuration=None, credential_file_override=None, document=None, enable_gdrive_access=False, flatten=None, force=True, format=None, h=None, help=None, http_timeout=None, launch_browser=True, log_http=None, project=None, quiet=None, trace_email=None, trace_log=None, trace_token=None, user_output_enabled=None, verbosity='warning', version=None).
+2016-11-10 13:49:28,747 INFO     ___FILE_ONLY___ Your browser has been opened to visit:
+
+    https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Flocalhost%3A8085%2F&prompt=select_account&response_type=code&client_id=32555940559.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcloud-platform+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fappengine.admin+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcompute&access_type=offline
+
+
+
+2016-11-10 13:49:35,534 INFO     oauth2client.client Successfully retrieved access token
+2016-11-10 13:49:35,537 DEBUG    oauth2client.multistore_file Initializing empty multistore file
+2016-11-10 13:49:35,541 INFO     ___FILE_ONLY___ You are logged in as: [jason.may@gmail.com].
+
+
+2016-11-10 13:49:58,119 DEBUG    root            Loaded Command Group: ['gcloud', 'config']
+2016-11-10 13:49:58,125 DEBUG    root            Loaded Command Group: ['gcloud', 'config', 'set']
+2016-11-10 13:49:58,126 INFO     root            Executing: [gcloud config set project cmdg-147723]
+2016-11-10 13:49:58,127 DEBUG    root            Running gcloud.config.set with Namespace(__calliope_internal_deepest_parser=ArgumentParser(prog='gcloud.config.set', usage=None, description='By default, sets the property in your active configuration only. Use the\n`--installation` flag to set the property across all configurations. See\n`gcloud topic configurations` for more information.\n\n## AVAILABLE PROPERTIES\n\n{properties}\n\n## EXAMPLES\n\nTo set the project property in the core section, run:\n\n  $ {command} project myProject\n\nTo set the zone property in the compute section, run:\n\n  $ {command} compute/zone zone3', version=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=False), account=None, authority_selector=None, authorization_token_file=None, calliope_command=<googlecloudsdk.calliope.backend.Command object at 0x10f8e1ad0>, command_path=['gcloud', 'config', 'set'], configuration=None, credential_file_override=None, document=None, flatten=None, format=None, h=None, help=None, http_timeout=None, installation=False, log_http=None, project=None, property='project', quiet=None, trace_email=None, trace_log=None, trace_token=None, user_output_enabled='false', value=u'cmdg-147723', verbosity='none', version=None).
+2016-11-10 13:49:58,127 INFO     ___FILE_ONLY___ Updated property [core/project].
+
+2016-11-10 13:49:58,127 INFO     root            Display disabled.
+2016-11-10 13:49:58,128 INFO     ___FILE_ONLY___ Your current project has been set to: [cmdg-147723].
+
+
+2016-11-10 13:49:58,134 DEBUG    root            Loaded Command Group: ['gcloud', 'compute']
+2016-11-10 13:49:58,138 DEBUG    root            Loaded Command Group: ['gcloud', 'compute', 'project_info']
+2016-11-10 13:49:58,290 DEBUG    root            Loaded Command Group: ['gcloud', 'compute', 'project-info', 'describe']
+2016-11-10 13:49:58,290 INFO     root            Executing: [gcloud compute project-info describe]
+2016-11-10 13:49:58,291 DEBUG    root            Running gcloud.compute.project-info.describe with Namespace(__calliope_internal_deepest_parser=ArgumentParser(prog='gcloud.compute.project-info.describe', usage=None, description='Describe the Google Compute Engine project resource.', version=None, formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=False), account=None, authority_selector=None, authorization_token_file=None, calliope_command=<googlecloudsdk.calliope.backend.Command object at 0x10f9407d0>, command_path=['gcloud', 'compute', 'project-info', 'describe'], configuration=None, credential_file_override=None, document=None, flatten=None, format=None, h=None, help=None, http_timeout=None, log_http=None, project=None, quiet=None, trace_email=None, trace_log=None, trace_token=None, user_output_enabled='false', verbosity='none', version=None).
+2016-11-10 13:49:58,433 DEBUG    root            Starting batch request...
+2016-11-10 13:49:58,433 DEBUG    root            Adding request: (<googlecloudsdk.third_party.apis.compute.v1.compute_v1_client.ProjectsService object at 0x110d238d0>, 'Get', <ComputeProjectsGetRequest
+ project: 'cmdg-147723'>)
+2016-11-10 13:49:58,434 DEBUG    root            Making batch request...
+2016-11-10 13:49:58,711 DEBUG    root            Error response: HttpError accessing <https://www.googleapis.com/batch>: response: <{'status': '403', 'Content-Length': '971', 'Expires': 'Thu, 10 Nov 2016 21:49:58 GMT', 'Cache-Control': 'private, max-age=0', 'Date': 'Thu, 10 Nov 2016 21:49:58 GMT', 'Content-Type': 'application/json; charset=UTF-8'}>, content <{
+ "error": {
+  "errors": [
+   {
+    "domain": "usageLimits",
+    "reason": "accessNotConfigured",
+    "message": "Access Not Configured. Compute Engine API has not been used in project 571589794610 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.",
+    "extendedHelp": "https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610"
+   }
+  ],
+  "code": 403,
+  "message": "Access Not Configured. Compute Engine API has not been used in project 571589794610 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+ }
+}
+>
+2016-11-10 13:49:58,711 DEBUG    root            Batch request done; responses [None]
+2016-11-10 13:49:58,712 DEBUG    root            (gcloud.compute.project-info.describe) Could not fetch resource:
+ - Access Not Configured. Compute Engine API has not been used in project 571589794610 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+Traceback (most recent call last):
+  File "/Users/jmay/Downloads/google-cloud-sdk/lib/googlecloudsdk/calliope/cli.py", line 740, in Execute
+    resources = args.calliope_command.Run(cli=self, args=args)
+  File "/Users/jmay/Downloads/google-cloud-sdk/lib/googlecloudsdk/calliope/backend.py", line 1648, in Run
+    resources = command_instance.Run(args)
+  File "/Users/jmay/Downloads/google-cloud-sdk/lib/googlecloudsdk/api_lib/compute/base_classes.py", line 729, in Run
+    error_message='Could not fetch resource:')
+  File "/Users/jmay/Downloads/google-cloud-sdk/lib/googlecloudsdk/api_lib/compute/utils.py", line 118, in RaiseToolException
+    RaiseException(problems, calliope_exceptions.ToolException, error_message)
+  File "/Users/jmay/Downloads/google-cloud-sdk/lib/googlecloudsdk/api_lib/compute/utils.py", line 130, in RaiseException
+    errors))
+ToolException: Could not fetch resource:
+ - Access Not Configured. Compute Engine API has not been used in project 571589794610 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+
+2016-11-10 13:49:58,716 ERROR    root            (gcloud.compute.project-info.describe) Could not fetch resource:
+ - Access Not Configured. Compute Engine API has not been used in project 571589794610 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute_component/overview?project=571589794610 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+
+2016-11-10 13:49:58,717 INFO     root            [compute project-info describe] has failed
+
+2016-11-10 13:49:58,717 INFO     ___FILE_ONLY___ Not setting default zone/region (this feature makes it easier to use
+[gcloud compute] by setting an appropriate default value for the
+--zone and --region flag).
+See https://cloud.google.com/compute/docs/gcloud-compute section on how to set
+default compute region and zone manually. If you would like [gcloud init] to be
+able to do this for you the next time you run it, make sure the
+Compute Engine API is enabled for your project on the
+https://console.developers.google.com/apis page.
+
+
+2016-11-10 13:49:58,717 DEBUG    root            Executing command: ['/Users/jmay/Downloads/google-cloud-sdk/bin/gsutil', 'config', '-n', '-o', '/Users/jmay/.boto']
+2016-11-10 13:50:01,205 DEBUG    ___FILE_ONLY___ 
+2016-11-10 13:50:01,205 DEBUG    ___FILE_ONLY___ This command will create a boto config file at /Users/jmay/.boto
+containing your credentials, based on your responses to the following
+questions.
+
+Boto config file "/Users/jmay/.boto" created. If you need to use a
+proxy to access the Internet please see the instructions in that file.
+
+2016-11-10 13:50:01,205 INFO     ___FILE_ONLY___ Created a default .boto configuration file at [/Users/jmay/.boto]. See this file and
+[https://cloud.google.com/storage/docs/gsutil/commands/config] for more
+information about configuring Google Cloud Storage.
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ Your Google Cloud SDK is configured and ready to use!
+
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ * Commands that require authentication will use jason.may@gmail.com by default
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ * Commands will reference project `cmdg-147723` by default
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ Run `gcloud help config` to learn how to change individual settings
+
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ This gcloud configuration is called [default]. You can create additional configurations if you work with multiple accounts and/or projects.
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ Run `gcloud topic configurations` to learn more.
+
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ Some things to try next:
+
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ * Run `gcloud --help` to see the Cloud Platform services you can interact with. And run `gcloud help COMMAND` to get help on any gcloud command.
+
+2016-11-10 13:50:01,206 INFO     ___FILE_ONLY___ * Run `gcloud topic -h` to learn about advanced features of the SDK like arg files and output formatting
+
+2016-11-10 13:50:01,207 INFO     root            Display format "default".
+2016-11-10 13:50:01,215 DEBUG    root            Metrics reporting process started...

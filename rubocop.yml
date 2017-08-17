@@ -1,0 +1,25 @@
+Encoding:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+  Max: 100
+
+StringLiterals:
+  Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+
+Style/WordArray:
+  MinSize: 4
+
+Style/SpaceBeforeBlockBraces:
+  Enabled: false
+  # I sometimes prefer ->{ and map{ without space

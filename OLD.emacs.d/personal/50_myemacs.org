@@ -1,0 +1,1319 @@
+* Converting my emacs configuration to literate programming
+:PROPERTIES:
+:tangle:   yes
+:END:
+
+Some references:
+
+- [[https://sites.google.com/site/steveyegge2/effective-emacs][Steve Yegge - Effective Emacs]]
+- [[http://alexott.net/en/writings/emacs-devenv/EmacsCedet.html][A Gentle Introduction to CEDET]]
+- [[https://github.com/sachac/.emacs.d][Sacha Chua's emacs.d]]
+- [[http://sachachua.com/blog/2014/12/emacs-configuration-use-package/][Sacha explains use-package]]
+- [[http://www.lunaryorn.com/2015/01/06/my-emacs-configuration-with-use-package.html][Sebastian Wiesner's configuration with use-package]]
+- [[http://doc.rix.si/cce/cce.html][Ryan Rix's Complete Computing Environment]]
+
+* General settings
+
+#+BEGIN_SRC emacs-lisp
+  (require 'use-package)
+
+  ;; emacs should ask before carrying out C-x C-c
+  (setq confirm-kill-emacs 'yes-or-no-p)
+
+  ;; default value of 'midnight-hook is 'clean-buffer-list
+  ;; I do not want emacs to close all my buffers every night
+  (remove-hook 'midnight-hook 'clean-buffer-list)
+
+  (setq prelude-guru nil)                 ; enable keyboard arrow keys for navigation
+
+  (use-package auto-compile
+    :ensure t
+    :init
+      (setq load-prefer-newer t)
+    :config
+      (progn
+        (auto-compile-on-load-mode 1)
+        (auto-compile-on-save-mode 1)
+      ))
+
+  (use-package which-key
+    :ensure t
+    :config
+      (which-key-mode)
+  )
+
+  (setq sentence-end-double-space nil)
+
+  (use-package imenu-anywhere
+    :ensure t)
+
+  ;; http://stuff-things.net/2015/10/05/emacs-visible-bell-work-around-on-os-x-el-capitan/
+
+  (setq visible-bell nil)
+  (setq ring-bell-function (lambda ()
+                             (invert-face 'mode-line)
+                             (run-with-timer 0.1 nil 'invert-face 'mode-line)))
+
+#+END_SRC
+
+** Personal Information
+
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "Jason W. May"
+      user-mail-address "jmay@pobox.com")
+#+END_SRC
+
+** Markdown editing & preview
+
+Use markdown-mode for =.txt= files
+
+#+BEGIN_SRC emacs-lisp :results silent
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+
+(defun markdown-preview-file ()
+  "Run Marked on the current file and revert the buffer"
+  (interactive)
+  (shell-command
+   (format "open -a /Applications/Marked\\ 2.app %s"
+           (shell-quote-argument (buffer-file-name))))
+  )
+#+END_SRC
+
+** Editing
+
+Always highlight the current line. =hlinum= is line highlighting, not
+line numbering.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hlinum
+    :ensure t
+    :config
+    (hlinum-activate)
+    )
+#+END_SRC
+
+** Software Development
+
+In coding buffers, I like to see:
+
+- the fill column indicator
+- text highlighted when it extends past the fill column
+- line numbers in the fringe.
+- when commenting regions, blank lines /should/ get comment markers
+
+#+BEGIN_SRC emacs-lisp
+;; for fci-mode
+(use-package fill-column-indicator
+  :ensure t)
+
+  (defun my-coding-settings ()
+    "Show fill column indications and line numbers"
+    (fci-mode)
+    (setq linum-format "%4d ")
+    (linum-mode)
+    (setq whitespace-line-column 70)
+    (setq comment-empty-lines t)
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+  )
+
+  (add-hook 'prog-mode-hook 'my-coding-settings)
+  ;; scss-mode (for CSS, SASS) is not derived from prog-mode
+  (add-hook 'scss-mode-hook 'my-coding-settings)
+  (add-hook 'web-mode-hook 'my-coding-settings)
+#+END_SRC
+
+Use js2-mode for =.es6= files
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode))
+#+END_SRC
+
+*** development settings
+
+#+BEGIN_SRC emacs-lisp
+
+(defun align-to-equals (begin end)
+  "Align region to equal signs"
+  (interactive "r")
+  (align-regexp begin end "\\(\\s-*\\)=" 1 1 ))
+
+;; http://www.emacswiki.org/emacs/AutoIndentation
+(add-hook 'prog-mode-hook '(lambda ()
+                             (local-set-key (kbd "RET") 'newline-and-indent)))
+
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (when buffer-file-name
+              (add-hook 'after-save-hook
+                        'check-parens
+                        nil t))))
+
+;; http://emacsredux.com/blog/2013/07/24/highlight-comment-annotations/
+;; TODO consider alternatives at http://www.emacswiki.org/emacs/FixmeMode
+
+(defun font-lock-comment-annotations ()
+  "Highlight a bunch of well known comment annotations.
+
+This functions should be added to the hooks of major modes for programming."
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\)\b"
+          1 font-lock-warning-face t))))
+
+(add-hook 'prog-mode-hook 'font-lock-comment-annotations)
+
+(use-package auto-complete
+  :ensure t
+  :config
+  (progn
+    (require 'auto-complete-config)
+    (ac-config-default)
+    (define-key ac-mode-map (kbd "C-c ,") 'auto-complete)
+  )
+)
+#+END_SRC
+
+*** [[https://github.com/purcell/ruby-hash-syntax][ruby-hash-syntax]]
+
+Toggle ruby hash syntax between classic and 1.9 styles.
+
+#+BEGIN_SRC emacs-lisp :results silent
+  (use-package ruby-hash-syntax
+    :ensure t
+  )
+#+END_SRC
+
+*** ruby development
+
+- ruby-mode (standard)
+- ruby-refactor-mode: C-c C-r prefix commands; unchanged since July 2014 (diminished to blank)
+- subword-mode (diminished to comma): treats subwords in code as words for nav
+- whitespace-mode (diminished to ws): reveals loose whitespace
+- projectile-rails-mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package ruby-refactor
+  :ensure t
+  :config
+  (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch)
+)
+
+;; inferior ruby
+(defun ruby-reload-and-go ()
+  "Send current buffer file to the inferior Ruby.
+Then switch to the process buffer."
+  (interactive)
+  (comint-check-source buffer-file-name) ; Check to see if buffer needs saved.
+  (comint-send-string (inf-ruby-proc) (concat "(load \""
+                                              (buffer-file-name)
+                                              "\"\)\n"))
+  (ruby-switch-to-inf t))
+
+;; for projectile-rails-on
+(use-package hydra
+  :ensure t)
+(use-package projectile-rails
+  :ensure t)
+
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+
+(use-package rspec-mode :ensure t)
+
+(define-key projectile-rails-mode-map (kbd "A-r") 'hydra-projectile-rails/body)
+#+END_SRC
+
+*** SQL development
+
+Emacs has no indentation built in for SQL. This seems to be a rough
+start. Also see this: [[http://stackoverflow.com/questions/24397274/writing-php-with-sql-queries-in-emacs/24659949#24659949][sql-indent-string]]
+
+#+BEGIN_SRC emacs-lisp
+(use-package sql-indent
+  :ensure t
+)
+#+END_SRC
+
+** Navigation
+
+Lucas Bonnet's buffer-move package.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package buffer-move
+    :ensure t
+    :bind (
+           ("C-H-<left>" . buf-move-left)
+           ("C-H-<right>" . buf-move-right)
+           )
+    )
+#+END_SRC
+
+#+RESULTS:
+
+** Various private functions
+
+Upcasing a region
+
+#+BEGIN_SRC emacs-lisp
+(defun upcase-region-or-word (numwords)
+  "Upcase a region if selected, otherwise the next word (or words if prefix argument is provided)."
+  (interactive "p")
+  (if (region-active-p)
+      (upcase-region (region-beginning) (region-end))
+    (upcase-word numwords)))
+#+END_SRC
+
+Commenting code
+
+#+BEGIN_SRC emacs-lisp
+(defun comment-or-uncomment-region-or-line ()
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position)))
+    (comment-or-uncomment-region beg end)
+    (forward-line)))
+
+
+#+END_SRC
+** Copy region without newlines
+
+- [[https://emacs.stackexchange.com/questions/1051/copy-region-from-emacs-without-newlines][my stackexchange post]]
+- [[https://gist.github.com/xahlee/d364cbbff9b3abd12d29][improved version from Xah Lee]]
+
+#+BEGIN_SRC emacs-lisp
+(defun compact-uncompact-block ()
+  "Remove or add line ending chars on current paragraph.
+This command is similar to a toggle of `fill-paragraph'.
+When there is a text selection, act on the region."
+  (interactive)
+
+  ;; This command symbol has a property “'stateIsCompact-p”.
+  (let (currentStateIsCompact (bigFillColumnVal 90002000) (deactivate-mark nil))
+    ;; 90002000 is just random. you can use `most-positive-fixnum'
+
+    (save-excursion
+      ;; Determine whether the text is currently compact.
+      (setq currentStateIsCompact
+            (if (eq last-command this-command)
+                (get this-command 'stateIsCompact-p)
+              (if (> (- (line-end-position) (line-beginning-position)) fill-column) t nil) ) )
+
+      (if (region-active-p)
+          (if currentStateIsCompact
+              (fill-region (region-beginning) (region-end))
+            (let ((fill-column bigFillColumnVal))
+              (fill-region (region-beginning) (region-end))) )
+        (if currentStateIsCompact
+            (fill-paragraph nil)
+          (let ((fill-column bigFillColumnVal))
+            (fill-paragraph nil)) ) )
+
+      (put this-command 'stateIsCompact-p (if currentStateIsCompact nil t)) ) ) )
+
+(defun my-copy-simple (&optional beg end)
+  "Save the current region (or line) to the `kill-ring' after stripping extra whitespace and new lines"
+  (interactive
+   (if (region-active-p)
+       (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-end-position))))
+  (let ((my-text (buffer-substring-no-properties beg end)))
+    (with-temp-buffer
+      (insert my-text)
+      (goto-char 1)
+      (while (looking-at "[ \t\n]")
+        (delete-char 1))
+      (let ((fill-column 9333999))
+        (fill-region (point-min) (point-max)))
+      (kill-region (point-min) (point-max)))))
+
+;; bindings
+(global-set-key (kbd "C-c q") 'compact-uncompact-block)
+(global-set-key (kbd "s-C") 'my-copy-simple)
+#+END_SRC
+
+** Highlight indentation columns in code
+
+Considering [[https://github.com/DarthFennec/highlight-indent-guides][highlight-indent-guides]] as an alternative to highlight-indentation.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package highlight-indentation
+      :ensure t
+      :config
+      (progn
+        (set-face-background 'highlight-indentation-face "#222")
+        (set-face-background 'highlight-indentation-current-column-face "#444")
+        (defun my-highlight-indentation ()
+          (progn
+            (highlight-indentation-mode)
+            (highlight-indentation-current-column-mode)
+            ))
+        (add-hook 'prog-mode-hook 'my-highlight-indentation)
+        )
+      )
+#+END_SRC
+
+** Database connections for my projects
+
+- [[https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client/][setting up emacs as a SQL client]]
+
+#+BEGIN_SRC emacs-lisp
+(setq sql-connection-alist
+      '((schoolistry (sql-product 'postgres)
+                     (sql-port 5432)
+                     (sql-server "localhost")
+                     (sql-user "jmay")
+                     (sql-password "")
+                     (sql-database "schoolistry"))
+        (schoolistry-prod (sql-product 'postgres)
+                          (sql-port 5432)
+                          (sql-server "remote")
+                          (sql-user "remote")
+                          (sql-password "remote")
+                          (sql-database "postgres"))
+;; using ssh port forwarding
+;; requires password entry in buffer, but displays no prompt
+        (veriphyr (sql-product 'postgres)
+                  (sql-port 5100)
+                  (sql-server "localhost")
+                  (sql-user "jmay")
+                  (sql-database "g1"))
+        )
+      )
+
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
+#+END_SRC
+
+** Writing, Typography
+
+http://irreal.org/blog/?p=4926
+
+#+BEGIN_SRC emacs-lisp
+(use-package char-menu
+  :ensure t
+  :bind ("A-s" . char-menu)
+  :config (setq char-menu '("—" "‘’" "“”" "…" "«»" "–"
+                            ("Typography" "•" "©" "†" "‡" "°" "·" "§" "№" "★")
+                            ("Math"       "≈" "≡" "≠" "∞" "×" "±" "∓" "÷" "√")
+                            ("Arrows"     "←" "→" "↑" "↓" "⇐" "⇒" "⇑" "⇓"))))
+#+END_SRC
+
+** Org-mode settings, TODO management, journal capture
+
+- [[http://doc.norang.ca/org-mode.html][Org Mode - Organize Your Life In Plain Text!]]
+- https://www.gnu.org/software/emacs/manual/html_node/org/Template-expansion.html
+- http://members.optusnet.com.au/~charles57/GTD/datetree.html
+- https://www.gnu.org/software/emacs/manual/html_node/org/Conflicts.html
+
+#+BEGIN_SRC emacs-lisp
+    ;; when opening org files, don't hide anything and use pretty indentation
+    (setq org-startup-folded 'showeverything)
+    (setq org-startup-indented t)
+
+    ;; fontify code in code blocks
+    (setq org-src-fontify-natively t)
+
+    ;; include everything up to level 4 in the options offered for C-c i
+    (setq org-imenu-depth 4)
+
+    ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html
+    (setq org-ellipsis "⤵")
+
+    ;; no prompting on C-c C-c execution in source blocks
+    (setq org-confirm-babel-evaluate nil)
+
+    ;; exporting (to HTML)
+      (setq org-export-with-smart-quotes t)
+      ;; force UTF-8
+      (setq org-export-coding-system 'utf-8)
+
+      (defun my-org-export-change-options (plist backend)
+        (cond
+         ((equal backend 'html)
+          (plist-put plist :with-toc nil)
+          (plist-put plist :section-numbers t))
+         ((equal backend 'md)
+          (plist-put plist :with-toc nil)
+          (plist-put plist :section-numbers nil)))
+        plist)
+
+      ;; (add-to-list 'org-export-filter-options-functions 'my-org-export-change-options)
+
+
+      ;; Make windmove work in org-mode:
+      (add-hook 'org-shiftup-final-hook 'windmove-up)
+      (add-hook 'org-shiftleft-final-hook 'windmove-left)
+      (add-hook 'org-shiftdown-final-hook 'windmove-down)
+      (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+      (setq org-capture-templates
+            '(
+              ("t"
+               "TODO"
+               entry
+               (file+headline "~/Dropbox/Documents/Notes/gtd.org" "Tasks")
+               "* TODO %?\n  %i\n  %a")
+              ("o"
+               "Otherbase TODO"
+               entry
+               (file+headline "~/Dropbox/Documents/Notes/otherbase-todo.org" "Tasks")
+               "* TODO %?\n  %i\n")
+              ("v"
+               "Veriphyr TODO"
+               entry
+               (file+headline "~/Dropbox/Documents/Notes/veriphyr-todo.org" "Tasks")
+               "* TODO %?\n  %i\n")
+              ("e"
+               "Emacs TODO"
+               entry
+               (file+headline "~/Dropbox/Documents/Notes/emacs-todo.org" "Emacs TODO")
+               "* TODO %?\n  %i\n")
+              ("j"
+               "Journal"
+               entry
+               (file+datetree "~/Dropbox/Documents/Notes/journal.org")
+               "* %?\n%i\n")
+              ("s"
+               "Schoolistry Journal"
+               entry
+               (file+datetree "~/Dropbox/Documents/Notes/journal.org")
+               "* %? :schoolistry:\n%i\n")
+              )
+            )
+
+      ;; http://www.emacswiki.org/emacs/AutoFillMode
+      (add-hook 'text-mode-hook 'turn-on-auto-fill)
+      (add-hook 'org-mode-hook 'turn-on-auto-fill)
+      (add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+
+      ;; for MobileOrg
+      (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+      (setq org-directory "~/Dropbox/Apps/MobileOrg")
+
+      ;; idea for how to completely conceal/reveal the PROPERTIES blocks
+      ;; https://stackoverflow.com/questions/17478260/completely-hide-the-properties-drawer-in-org-mode
+      ;; (defun lawlist-org-cycle-hide-drawers (state)
+      ;;   "Re-hide all drawers after a visibility state change."
+      ;;   (when (and (derived-mode-p 'org-mode)
+      ;;        (not (memq state '(overview folded contents))))
+      ;;     (save-excursion
+      ;;       (let* ((globalp (memq state '(contents all)))
+      ;;              (beg (if globalp (point-min) (point)))
+      ;;              (end (if globalp (point-max)
+      ;;         (if (eq state 'children)
+      ;;       (save-excursion (outline-next-heading) (point))
+      ;;           (org-end-of-subtree t)))))
+      ;;   (goto-char beg)
+      ;;   (while (re-search-forward "^.*DEADLINE:.*$\\|^\\*\\* Someday.*$\\|^\\*\\* None.*$\\|^\\*\\* Planning.*$\\|^\\* TASKS.*$" end t)
+      ;;      (save-excursion
+      ;;     (beginning-of-line 1)
+      ;;     (when (looking-at "^.*DEADLINE:.*$\\|^\\*\\* Someday.*$\\|^\\*\\* None.*$\\|^\\*\\* Planning.*$\\|^\\* TASKS.*$")
+      ;;       (let ((b (match-end 0)))
+      ;;   (if (re-search-forward
+      ;;        "^[ \t]*:END:"
+      ;;        (save-excursion (outline-next-heading) (point)) t)
+      ;;       (outline-flag-region b (point-at-eol) t)
+      ;;     (user-error ":END: line missing at position %s" b))))))))))
+
+      (use-package org-bullets
+        :ensure t
+        :config
+        (progn
+          (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+          (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●"))
+          )
+        )
+
+
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; install sql (includes postgresql) support for org-babel
+      ;; http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-sql.html
+      ;; active Babel languages
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '((sql . t)
+         (sh . t)
+         (python . t)))
+      ;; add additional languages with '((language . t)))
+
+      (defun babel-confirm (flag)
+        "Report the setting of org-confirm-babel-evaluate.
+      If invoked with C-u, toggle the setting"
+        (interactive "P")
+        (if (equal flag '(4))
+            (setq org-confirm-babel-evaluate (not org-confirm-babel-evaluate)))
+        (message "Babel evaluation confirmation is %s"
+                 (if org-confirm-babel-evaluate "on" "off")))
+
+      ;; (org-add-link-type
+      ;;  "yt"
+      ;;  (lambda (handle)
+      ;;    (browse-url (concat "https://www.youtube.com/embed/" handle)))
+      ;;  (lambda (path desc backend)
+      ;;    (cl-case backend
+      ;;      ;; You may want to change your width and height.
+      ;;      (html (format "<iframe width=\"440\" height=\"335\" src=\"https://www.youtube.com/embed/%s\" frameborder=\"0\" allowfullscreen>%s</iframe>"
+      ;;                    path (or desc "")))
+      ;;      (latex (format "\href{%s}{%s}" path (or desc "video"))))))
+
+      (use-package org-download
+        :ensure t)
+
+      ;; Turn off ispell checking inside org mode source blocks
+      ;; NOT WORKING ON 150824
+      ;; http://endlessparentheses.com/ispell-and-org-mode.html
+      ;; (defun endless/org-ispell ()
+      ;;   "Configure `ispell-skip-region-alist' for `org-mode'."
+      ;;   (make-local-variable 'ispell-skip-region-alist)
+      ;;   (add-to-list 'ispell-skip-region-alist '(org-property-drawer-re))
+      ;;   (add-to-list 'ispell-skip-region-alist '("~" "~"))
+      ;;   (add-to-list 'ispell-skip-region-alist '("=" "="))
+      ;;   (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "^#\\+END_SRC")))
+      ;; (add-hook 'org-mode-hook #'endless/org-ispell)
+
+
+      ;; http://pragmaticemacs.com/emacs/wrap-text-in-an-org-mode-block/
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      ;; function to wrap blocks of text in org templates                       ;;
+      ;; e.g. latex or src etc                                                  ;;
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      (defun org-begin-template ()
+        "Make a template at point."
+        (interactive)
+        (if (org-at-table-p)
+            (call-interactively 'org-table-rotate-recalc-marks)
+          (let* ((choices '(("s" . "SRC")
+                            ("e" . "EXAMPLE")
+                            ("q" . "QUOTE")
+                            ("v" . "VERSE")
+                            ("c" . "CENTER")
+                            ("l" . "LaTeX")
+                            ("h" . "HTML")
+                            ("a" . "ASCII")))
+                 (key
+                  (key-description
+                   (vector
+                    (read-key
+                     (concat (propertize "Template type: " 'face 'minibuffer-prompt)
+                             (mapconcat (lambda (choice)
+                                          (concat (propertize (car choice) 'face 'font-lock-type-face)
+                                                  ": "
+                                                  (cdr choice)))
+                                        choices
+                                        ", ")))))))
+            (let ((result (assoc key choices)))
+              (when result
+                (let ((choice (cdr result)))
+                  (cond
+                   ((region-active-p)
+                    (let ((start (region-beginning))
+                          (end (region-end)))
+                      (goto-char end)
+                      (insert "#+END_" choice "\n")
+                      (goto-char start)
+                      (insert "#+BEGIN_" choice "\n")))
+                   (t
+                    (insert "#+BEGIN_" choice "\n")
+                    (save-excursion (insert "#+END_" choice))))))))))
+
+  (add-to-list 'org-structure-template-alist '("n" "#+NAME: ?"))
+
+  ;; (add-to-list 'org-structure-template-alist
+  ;;              '("s" "#+NAME: ?\n#+BEGIN_SRC \n\n#+END_SRC"))
+    ;; (use-package org-protocol
+    ;; :ensure t)
+
+#+END_SRC
+
+#+RESULTS:
+| n | #+NAME: ?                           |                                        |
+| s | #+BEGIN_SRC ?\n\n#+END_SRC          | <src lang="?">\n\n</src>               |
+| e | #+BEGIN_EXAMPLE\n?\n#+END_EXAMPLE   | <example>\n?\n</example>               |
+| q | #+BEGIN_QUOTE\n?\n#+END_QUOTE       | <quote>\n?\n</quote>                   |
+| v | #+BEGIN_VERSE\n?\n#+END_VERSE       | <verse>\n?\n</verse>                   |
+| V | #+BEGIN_VERBATIM\n?\n#+END_VERBATIM | <verbatim>\n?\n</verbatim>             |
+| c | #+BEGIN_CENTER\n?\n#+END_CENTER     | <center>\n?\n</center>                 |
+| l | #+BEGIN_LaTeX\n?\n#+END_LaTeX       | <literal style="latex">\n?\n</literal> |
+| L | #+LaTeX:                            | <literal style="latex">?</literal>     |
+| h | #+BEGIN_HTML\n?\n#+END_HTML         | <literal style="html">\n?\n</literal>  |
+| H | #+HTML:                             | <literal style="html">?</literal>      |
+| a | #+BEGIN_ASCII\n?\n#+END_ASCII       |                                        |
+| A | #+ASCII:                            |                                        |
+| i | #+INDEX: ?                          | #+INDEX: ?                             |
+| I | #+INCLUDE: %file ?                  | <include file=%file markup="?">        |
+
+
+*** evaluate & improve these
+
+- [[http://matt.hackinghistory.ca/2015/07/11/temporary-exporting/][EXPORTING ORG-FILES TO A TEMPORARY LOCATION]] (Matt Price)
+
+This needs work. The path is hard-coded. And the highlight-indentation
+settings are somehow being transmitted through to the HTML export.
+
+#+BEGIN_SRC emacs-lisp
+;; export html to tmp dir
+(defun mwp-org-html-to-tmp
+    (&optional async subtreep visible-only body-only ext-plist)
+  "Export current buffer to a HTML file in the tmp directory.
+
+If narrowing is active in the current buffer, only export its
+narrowed part.
+
+If a region is active, export that region.
+
+A non-nil optional argument ASYNC means the process should happen
+asynchronously.  The resulting file should be accessible through
+the `org-export-stack' interface.
+
+When optional argument SUBTREEP is non-nil, export the sub-tree
+at point, extracting information from the headline properties
+first.
+
+When optional argument VISIBLE-ONLY is non-nil, don't export
+contents of hidden elements.
+
+When optional argument BODY-ONLY is non-nil, only write code
+between \"<body>\" and \"</body>\" tags.
+
+
+EXT-PLIST, when provided, is a property list with external
+parameters overriding Org default settings, but still inferior to
+file-local settings.
+
+Return output file's name."
+  (interactive)
+  (let* ((extension (concat "." (or (plist-get ext-plist :html-extension)
+                                    org-html-extension
+                                    "html")))
+;; this is the code I've changed from the original function.
+         (file (org-export-output-file-name extension subtreep "/Users/jmay/tmp/"))
+
+         (org-export-coding-system org-html-coding-system))
+    (org-export-to-file 'html file
+      async subtreep visible-only body-only ext-plist)
+    (org-open-file file)))
+
+(org-defkey org-mode-map
+            (kbd "C-c 0") 'mwp-org-html-to-tmp)
+#+END_SRC
+
+** Theme
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-theme :ensure t)
+
+  (use-package color-theme-solarized :ensure t)
+  (color-theme-solarized-dark)
+
+  ;;(use-package color-theme-wheat :ensure t)
+  ;;(color-theme-wheat)
+
+  ;;(use-package color-theme-sanityinc-tomorrow :ensure t)
+  ;;(color-theme-sanityinc-tomorrow-night)
+
+  ;; (use-package reykjavik-theme :ensure t)
+  ;; (load-theme 'reykjavik)
+
+#+END_SRC
+
+I prefer a larger font to the default.
+
+#+BEGIN_SRC emacs-lisp
+(setq default-frame-alist '((font . "Source Code Pro-14")))
+#+END_SRC
+
+[[https://github.com/TheBB/spaceline/tree/master][Mode line theme from Spacemacs]]
+
+#+BEGIN_SRC emacs-lisp
+(use-package spaceline
+  :ensure t
+  :config
+    (progn
+      (require 'spaceline-config)
+      (spaceline-spacemacs-theme)
+    )
+)
+
+;; prelude turns on rainbow; maybe I don't want it;
+;; Sacha thinks that it is slow
+;; (use-package rainbow-delimiters :disabled t)
+#+END_SRC
+
+DISABLED: This is my old personal theme. Probably want to nuke this
+and go with a standard theme.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(if (eq (window-system) 'ns)
+    (progn
+     (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+     (load-theme 'jmay t)
+     ))
+#+END_SRC
+
+For Emoji
+
+#+BEGIN_SRC emacs-lisp
+(set-fontset-font
+ t 'symbol
+ (font-spec :family "Apple Color Emoji") nil 'prepend)
+#+END_SRC
+
+** Disabled packages
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(use-package dash-at-point) ;; links to dash
+(use-package motion-mode) ;; rubymotion
+(use-package deft)
+(use-package minimap)
+(use-package switch-window)
+#+END_SRC
+
+** Under consideration
+
+Having problems with this: hanging when trying to transfer a link from
+Chrome.
+
+160109 it's working now. What changed?
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-mac-link
+    :ensure t
+    )
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (define-key org-mode-map (kbd "C-c M-l") 'org-mac-grab-link)
+              (define-key org-mode-map (kbd "s-,") 'org-begin-template);; Command-, (no shift needed, not <)
+              )
+            )
+#+END_SRC
+
+*** TODO [[http://matt.hackinghistory.ca/2015/11/11/note-taking-with-pdf-tools/][NOTE TAKING WITH PDF TOOLS]]
+
+*** this might all be superseded by use-package
+
+#+BEGIN_SRC emacs-lisp :tangle no
+;; https://github.com/rranelli/emacs-dotfiles/blob/master/lisp/init-bootstrap.el
+
+(setq jwm-initialization-errors ())
+
+(defun jwm-safe-require (feature)
+  "Safely requires FEATURE."
+  (condition-case ex
+      (require feature)
+    ('error (add-to-list 'jwm-initialization-errors
+			 (format "[ERROR LOADING \"%s\"]: %s" (symbol-name feature) ex)))))
+
+(defun jwm-safe-load (file)
+  "Safely loads FILE."
+  (condition-case ex
+      (load file)
+    ('error (add-to-list 'jwm-initialization-errors
+			 (format "[ERROR LOADING \"%s\"]: %s" file ex)))))
+
+(defun jwm-safe-load-init-files ()
+  (mapc 'jwm-safe-load (directory-files "./pieces" 't "^[^#]*.el$")))
+
+;; (jwm-safe-load-init-files)
+#+END_SRC
+
+** Keyboard Bindings
+
+*** modifier key mappings for MacOSX
+
+- https://www.gnu.org/software/emacs/manual/html_node/elisp/Key-Binding-Conventions.html
+- http://ergoemacs.org/emacs/keyboard_shortcuts.html
+- http://emacsformacosx.com/tips
+
+"Sequences consisting of C-c and a letter (either upper or lower case) are reserved for users"
+
+For multi-modifier combinations, write the modifiers in alphabetical order (C-H-M-s-S)
+
+- Emacs understands Shift (S-), Control (C-), Meta (M-), Super (s-), Hyper (H-)
+- control key is Control
+- both shift keys are Shift
+- escape key is Meta
+- OSX fn key is Hyper
+- I prefer the following: option/alt key is Hyper, command key is Super
+
+The easiest way is to use the Customize interface: "M-x
+customize-group RET ns RET".
+
+- ns-alternate-modifier
+- ns-command-modifier
+- ns-control-modifier
+- ns-function-modifier
+- ns-option-modifier (just a different name for ns-alternate-modifier)
+- ns-right-alternate-modifier
+- ns-right-command-modifier
+- ns-right-control-modifier
+- ns-right-option-modifier
+
+#+BEGIN_SRC emacs-lisp
+(setq mac-command-modifier 'super)
+(setq mac-option-modifier 'hyper)
+(setq mac-right-command-modifier 'alt)
+#+END_SRC
+
+** Global mappings
+
+Command-z is Undo; make sure that Command-Shift-z is Redo
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "s-Z") 'undo-tree-redo)
+#+END_SRC
+
+** Navigation
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (read-kbd-macro "s-<down>") 'scroll-up-command)
+(global-set-key (read-kbd-macro "s-<up>") 'scroll-down-command)
+(global-set-key (read-kbd-macro "<next>") 'forward-paragraph)   ;; fn-down
+(global-set-key (read-kbd-macro "<prior>") 'backward-paragraph) ;; fn-up
+
+;; windmove package sets shift-arrow bindings to navigate between windows,
+;; so use Hyper key (Alt/Option) for selecting regions.
+
+(global-set-key (kbd "H-<right>") 'forward-word)
+(global-set-key (kbd "H-<left>") 'backward-word)
+(global-set-key (kbd "H-<up>") 'previous-line)
+(global-set-key (kbd "H-<down>") 'next-line)
+
+;; navigating between buffers
+;; windmove moves the cursor; buf-move swaps entire buffers
+(global-set-key (kbd "<A-left>")   'windmove-left)
+(global-set-key (kbd "<A-right>")  'windmove-right)
+(global-set-key (kbd "<A-up>")  'windmove-up)
+(global-set-key (kbd "<A-down>")  'windmove-down)
+
+(global-set-key (kbd "<A-H-left>")   'buf-move-left)
+(global-set-key (kbd "<A-H-right>")  'buf-move-right)
+
+
+(global-set-key (kbd "M-p") 'ace-window)
+
+;; Search
+;; Up for consideration:
+;; swap isearch-forward C-s and isearch-forward-regexp C-M-s
+;; ditto backward C-r, C-M-R
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "M-%") 'query-replace-regexp)
+(global-set-key (kbd "C-M-%") 'query-replace)
+
+;; avy-goto-line supports letter-combo shortcuts and line numbers
+;; http://oremacs.com/2015/05/17/avy-goto-line/
+
+(global-set-key (kbd "M-g g") 'avy-goto-line)
+(global-set-key (kbd "s-l") 'avy-goto-line)
+
+;; http://endlessparentheses.com/improving-page-navigation.html
+(define-key prog-mode-map "\C-x\C-n" #'forward-page)
+(define-key prog-mode-map "\C-x\C-p" #'backward-page)
+
+(setq page-delimiter
+      (rx bol ";;;" (not (any "#")) (* not-newline) "\n"
+          (* (* blank) (opt ";" (* not-newline)) "\n")))
+
+(use-package ace-jump-zap
+             :ensure ace-jump-zap
+             :bind
+             (("M-z" . ace-jump-zap-up-to-char-dwim)
+              ("C-M-z" . ace-jump-zap-to-char-dwim)))
+
+(use-package goto-chg
+  :ensure t
+  :config
+    (progn
+      (global-set-key (kbd "<H-up>") 'goto-last-change)
+      (global-set-key (kbd "<H-down>") 'goto-last-change-reverse)
+    ))
+
+(use-package transpose-frame
+  :ensure t
+  :config
+      (global-set-key (kbd "C-c |") 'transpose-frame)
+)
+#+END_SRC
+
+#+RESULTS:
+
+Navigation hydras, from John Kitchin and others
+
+- <f2> and <f8> are my old ones
+- [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/27/Upping-my-Emacs-navigation-game][Upping my Emacs navigation game]]
+- left & right-Command-N "navigate" moves around
+- [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/28/A-cursor-goto-hydra-for-emacs][A cursor goto hydra for emacs]]
+- left & right-Command-G "goto" jumps to things
+
+#+BEGIN_SRC emacs-lisp
+(use-package hydra
+  :ensure t
+  :config
+  (progn
+    (defhydra hydra-zoom (global-map "<f2>")
+      "zoom"
+      ("]" text-scale-increase "in")
+      ("[" text-scale-decrease "out")
+      )
+
+    (defhydra hydra-window (:color amaranth)
+      "window"
+      ;; navigation
+      ("h" windmove-left)
+      ("j" windmove-down)
+      ("k" windmove-up)
+      ("l" windmove-right)
+      ;; create new window and navigate to i
+      ("v" (lambda ()
+             (interactive)
+             (split-window-right)
+             (windmove-right))
+       "vert")
+      ("x" (lambda ()
+             (interactive)
+             (split-window-below)
+             (windmove-down))
+       "horz")
+      ("t" transpose-frame "trans")
+      ("o" delete-other-windows "one" :color blue)
+      ("a" ace-window "ace")
+      ("s" ace-swap-window "swap")
+      ("d" ace-delete-window "del")
+      ("i" ace-maximize-window "ace-one" :color blue)
+      ("b" ido-switch-buffer "buf")
+      ;; ("m" headlong-bookmark-jump "bmk")
+      ("q" nil "cancel")
+      )
+
+    (global-set-key (kbd "<f8>") 'hydra-window/body)
+    )
+  )
+
+(defhydra hydra-navigate (:color red
+                          :hint nil)
+  "
+_f_: forward-char       _w_: forward-word       _n_: next-line
+_b_: backward-char      _W_: backward-word      _p_: previous-line
+^ ^                     _o_: subword-right      _,_: beginning-of-line
+^ ^                     _O_: subword-left       _._: end-of-line
+
+_s_: forward sentence   _a_: forward paragraph  _g_: forward page
+_S_: backward sentence  _A_: backward paragraph _G_: backward page
+
+_h_: helm mini _B_: buffer list _i_: window
+_<left>_: previous buffer   _<right>_: next buffer
+_<up>_: scroll-up           _<down>_: scroll-down
+
+_[_: backward-sexp _]_: forward-sexp
+_<_ beginning of buffer _>_ end of buffer _m_: set mark _/_: jump to mark
+"
+  ("f" forward-char)
+  ("b" backward-char)
+  ("w" forward-word)
+  ("W" backward-word)
+  ("n" next-line)
+  ("p" previous-line)
+  ("o" subword-right)
+  ("O" subword-left)
+  ("s" forward-sentence)
+  ("S" backward-sentence)
+  ("a" forward-paragraph)
+  ("A" backward-paragraph)
+  ("g" forward-page)
+  ("G" backward-page)
+  ("<right>" next-buffer)
+  ("<left>" previous-buffer)
+  ("h" helm-mini :color blue)
+  ("i" ace-window :color blue)
+  ("m" org-mark-ring-push)
+  ("/" org-mark-ring-goto :color blue)
+  ("B" helm-buffers-list)
+  ("<up>" scroll-up)
+  ("<down>" scroll-down)
+  ("<" beginning-of-buffer)
+  (">" end-of-buffer)
+  ("." end-of-line)
+  ("[" backward-sexp)
+  ("]" forward-sexp)
+  ("," beginning-of-line)
+  ("q" nil "quit" :color blue))
+
+(global-set-key (kbd "s-n") 'hydra-navigate/body)
+(global-set-key (kbd "A-n") 'hydra-navigate/body)
+
+(defhydra goto (:color blue :hint nil)
+  "
+Goto:
+^Char^              ^Word^                ^org^                    ^search^
+^^^^^^^^---------------------------------------------------------------------------
+_c_: 2 chars        _w_: word by char     _h_: headline in buffer  _o_: helm-occur
+_C_: char           _W_: some word        _a_: heading in agenda
+_L_: char in line   _s_: subword by char  _q_: swoop org buffers   _f_: search forward
+^  ^                _S_: some subword     ^ ^                      _b_: search backward
+-----------------------------------------------------------------------------------
+_B_: helm-buffers       _l_: avy-goto-line
+_m_: helm-mini          _i_: ace-window
+_R_: helm-recentf
+
+_n_: Navigate           _._: mark position _/_: jump to mark
+"
+  ("c" avy-goto-char-2)
+  ("C" avy-goto-char)
+  ("L" avy-goto-char-in-line)
+  ("w" avy-goto-word-1)
+  ;; jump to beginning of some word
+  ("W" avy-goto-word-0)
+  ;; jump to subword starting with a char
+  ("s" avy-goto-subword-1)
+  ;; jump to some subword
+  ("S" avy-goto-subword-0)
+
+  ("l" avy-goto-line)
+  ("i" ace-window)
+
+  ("h" helm-org-headlines)
+  ("a" helm-org-agenda-files-headings)
+  ("q" helm-multi-swoop-org)
+
+  ("o" helm-occur)
+;;  ("p" swiper-helm)
+
+  ("f" isearch-forward)
+  ("b" isearch-backward)
+
+  ("." org-mark-ring-push :color red)
+  ("/" org-mark-ring-goto :color blue)
+  ("B" helm-buffers-list)
+  ("m" helm-mini)
+  ("R" helm-recentf)
+  ("n" hydra-navigate/body)
+  )
+
+(global-set-key (kbd "s-g") 'goto/body)
+(global-set-key (kbd "A-g") 'goto/body)
+#+END_SRC
+
+#+RESULTS:
+: goto/body
+
+
+** Selection & multiple-cursors
+
+right-command+w to select current word/sentence/para/etc for action
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "A-w") 'er/expand-region)
+
+(use-package multiple-cursors
+  :ensure t
+  :config
+  (progn
+    ;; When you have an active region that spans multiple lines, the following will add a cursor to each line:
+    (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+
+    ;; When you want to add multiple cursors not based on continuous lines, but based on keywords in the buffer, use:
+    (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+    (global-set-key (kbd "H-)") 'mc/mark-next-like-this)
+    (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+    (global-set-key (kbd "C-*") 'mc/mark-all-like-this)
+    )
+  )
+
+#+END_SRC
+
+** Programming
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c \\") 'comment-or-uncomment-region-or-line)
+  (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region-or-line)
+  (global-set-key (kbd "s-/") 'comment-or-uncomment-region-or-line)
+
+  (global-set-key (kbd "C-c q") 'compact-uncompact-block)
+
+  (global-set-key (kbd "M-u") 'upcase-region-or-word)
+
+  (global-set-key (kbd "s-(") 'insert-parentheses)
+  (global-set-key (kbd "s-9") 'insert-parentheses)
+
+(use-package unfill
+  :ensure t
+  :config
+  (progn
+    (global-set-key (kbd "C-c M-q") 'toggle-fill-unfill)
+    (global-set-key (kbd "M-q") 'toggle-fill-unfill)
+  ))
+
+  ;; todo, notes, journal
+  (global-set-key (kbd "C-c j") 'org-capture)
+  (global-set-key (kbd "C-c c") 'org-capture)
+
+  (global-set-key (kbd "s-<right>") 'org-indent-item)
+  (global-set-key (kbd "s-<left>") 'org-outdent-item)
+
+  (global-set-key (kbd "s-<f11>") 'toggle-frame-fullscreen)
+
+  (global-set-key (kbd "C-c b") 'browse-url-at-point)
+
+  (use-package reveal-in-osx-finder
+    :ensure t
+    :config
+    (progn
+      ;; make this the default binding for C-c C-o
+      ;; org-mode changes behavior when point is on a link
+      (global-set-key (kbd "C-c C-o") 'reveal-in-osx-finder)
+      )
+    )
+
+  (global-set-key (kbd "s-C") 'my-copy-simple)
+
+  (global-set-key (kbd "C-c =") 'align-to-equals)
+
+  (global-set-key (kbd "C-c y") 'browse-kill-ring)
+
+  ;; I don't like these bindings; turn them off
+  (global-unset-key (kbd "s-n"))        ; C-x 5 2 also does this
+  (global-unset-key (kbd "C-\\"))       ; don't need emacs input methods
+  (global-unset-key (kbd "C-x p"))      ; always hitting this when I want C-c p for projectile stuff
+
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c v") 'markdown-preview-file)
+              )
+            )
+
+  (add-hook 'ruby-mode-hook
+            (lambda ()
+              (define-key ruby-mode-map (kbd "C-c C-c") 'xmp)
+              (define-key ruby-mode-map (kbd "C-c M-l") 'ruby-reload-and-go)
+              (define-key ruby-mode-map (kbd "C-\\") 'comment-or-uncomment-region-or-line)
+  ;;            (define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
+              ))
+  ;; ruby-refactor adds C-c C-r keymap with {e, v, c, p, l}
+
+  (global-set-key (kbd "C-c C-b") 'bundle-console)
+  (setq feature-use-rvm t) ;; Tell cucumber to use RVM
+#+END_SRC
+
+** Disabled
+
+Navigation with key chords. I think I prefer the hydra approach.
+
+#+BEGIN_SRC emacs-lisp
+(use-package key-chord
+  :ensure t
+  :config
+(progn
+(key-chord-define-global "jj" nil) ;; disable this because I use jj in ruby
+;; (key-chord-define-global "jw" 'ace-jump-word-mode)
+;; (key-chord-define-global "yy" 'ace-jump-word-mode)
+;; switching from ace-jump to avy (included with ace-window)
+(key-chord-define-global "jw" 'avy-goto-word-1)
+(key-chord-define-global "yy" 'avy-goto-word-1)
+))
+
+
+;; turns out that default C-.+enter does this already (org-time-stamp)
+(defun org-insert-today-date ()
+  "Insert today's date in org date format."
+  (interactive)
+  (org-insert-time-stamp (current-time))
+  )
+
+(use-package org
+  :ensure t
+  :config
+  (define-key org-mode-map (kbd "C-c <") 'org-insert-today-date)
+  )
+
+  ;; using deft with org-mode
+
+  ;; (when (require 'deft nil 'noerror)
+  ;;   (setq
+  ;; ;;   deft-extension "org"
+  ;;    deft-directory "~/.deft"
+  ;;    deft-text-mode 'org-mode
+  ;;    deft-auto-save-interval 0
+  ;;   )
+  ;;   (global-set-key (kbd "<f9>") 'deft))
+
+  ;; 130718 currently I don't like the deft auto-save because it triggers whitespace-cleanup
+  ;; couldn't turn it off once Deft has been loaded, needed to do this:
+  ;; (cancel-function-timers 'deft-auto-save)
+#+END_SRC
+
+
+Having lots of problems with Dash. Re-enable these when issues are
+resolved.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(global-set-key (read-kbd-macro "C-c m") 'dash-at-point)
+(add-to-list 'dash-at-point-mode-alist '(perl-mode . "perl"))
+#+END_SRC
+
+** Under Consideration
+
+#+BEGIN_SRC emacs-lisp
+;; for projectile-ag to work
+(use-package ag :ensure t)
+#+END_SRC
+
+** magit
+
+[[http://endlessparentheses.com/create-github-prs-from-emacs-with-magit.html][Create Github PRs from Emacs with Magit (again)
+]]
+#+BEGIN_SRC emacs-lisp
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-remote)
+                       "url"))
+           (cdr (or (magit-get-remote-branch)
+                    (user-error "No remote branch"))))))
+
+(eval-after-load 'magit
+  '(define-key magit-mode-map "v"
+     #'endless/visit-pull-request-url))
+#+END_SRC
+
+** pair programming
+
+Trying floobits
+
+#+BEGIN_SRC emacs-lisp
+(use-package floobits :ensure t)
+#+END_SRC
+
+** MacOSX-specific issues
+
+C-z is bound to =suspend-frame=, which reliably crashes emacs (seg
+fault with no log or core).
+
+[[https://debbugs.gnu.org/cgi/bugreport.cgi?bug%3D21626][#21626 - 24.5; Segfault on C-z on Mac OS X 10.11 - GNU bug report logs]]
+
+#+BEGIN_SRC emacs-lisp
+(put 'suspend-frame 'disabled t)
+#+END_SRC
+
+[[https://debbugs.gnu.org/cgi/pkgreport.cgi?package%3Demacs%3Bmax-bugs%3D100%3Bbase-order%3D1%3Bbug-rev%3D1][bugs in package emacs -- GNU bug report logs]]
+
+*** Experimentation
+
+org-mac-link seems to be OK, so don't need this stuff
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(do-applescript "tell application \"Safari\" to return URL of front document")
+(do-applescript "tell application \"Google Chrome\" to return URL of active tab of front window")
+(do-applescript "tell application \"Google Chrome\" to return title of active tab of front window")
+
+(use-package org-mac-link :ensure t)
+#+END_SRC

@@ -1,0 +1,4 @@
+--ignore-file=is:.emacs.desktop
+--ignore-file=match:.mc-
+--ignore-dir=elpa
+--ignore-dir=savefile
